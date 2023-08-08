@@ -1,6 +1,6 @@
 #include "EdgeContent.hpp"
 
-namespace Graph
+namespace GraphNs
 {
     CoreCpp::StatusCode EdgeContent::PopulateContent()
     {

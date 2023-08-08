@@ -8,7 +8,7 @@
 #include <string>
 #include "CoreCppTypes.hpp"
 
-namespace Graph 
+namespace GraphNs 
 {
     class INode
     {

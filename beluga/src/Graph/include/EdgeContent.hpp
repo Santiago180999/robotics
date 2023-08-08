@@ -9,7 +9,7 @@
 #include "CoreCppTypes.hpp"
 
 
-namespace Graph
+namespace GraphNs
 {
     class EdgeContent : public CoreCpp::IContent
     {

@@ -1,18 +1,18 @@
 #include "Edge.hpp"
 
-namespace Graph
+namespace GraphNs
 {
-    Edge::Edge(Graph::Node& rNodeA, Graph::Node& rNodeB)
+    Edge::Edge(GraphNs::Node& rNodeA, GraphNs::Node& rNodeB)
     {
-        m_nodes = std::make_pair<Graph::Node*, Graph::Node*>(&rNodeA, &rNodeB);
+        m_nodes = std::make_pair<GraphNs::Node*, GraphNs::Node*>(&rNodeA, &rNodeB);
     }
 
-    std::pair<Graph::Node*, Graph::Node*> Edge::GetNodes()
+    std::pair<GraphNs::Node*, GraphNs::Node*> Edge::GetNodes()
     {
         return m_nodes;
     }
 
-    CoreCpp::StatusCode Edge::SetContent(Graph::EdgeContent* pContent)
+    CoreCpp::StatusCode Edge::SetContent(GraphNs::EdgeContent* pContent)
     {
         m_content = std::move(pContent);
 

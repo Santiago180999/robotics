@@ -9,7 +9,7 @@
 #include "EdgeContent.hpp"
 #include "Node.hpp"
 
-namespace Graph
+namespace GraphNs
 {
     /**
      * @brief
@@ -20,24 +20,24 @@ namespace Graph
         /**
          * @brief
         */
-        Edge(Graph::Node& rNodeA, Graph::Node& rNodeB);
+        Edge(GraphNs::Node& rNodeA, GraphNs::Node& rNodeB);
 
         /**
          * @brief
         */
-        std::pair<Graph::Node*, Graph::Node*> GetNodes();
+        std::pair<GraphNs::Node*, GraphNs::Node*> GetNodes();
 
         /**
          * @brief 
         */
-        CoreCpp::StatusCode SetContent(Graph::EdgeContent* pContent);
+        CoreCpp::StatusCode SetContent(GraphNs::EdgeContent* pContent);
         
         virtual std::string ToString();
 
 
         private:
-        std::pair<Graph::Node*, Graph::Node*> m_nodes;
-        Graph::EdgeContent* m_content;
+        std::pair<GraphNs::Node*, GraphNs::Node*> m_nodes;
+        GraphNs::EdgeContent* m_content;
     };
 }
 

@@ -11,12 +11,12 @@
 #include "CoreCppTypes.hpp"
 
 
-namespace Graph
+namespace GraphNs
 {
     /**
      * @brief Class implementing the node interface
     */
-    class Node : public Graph::INode
+    class Node : public GraphNs::INode
     {
         public:
         /**
@@ -34,19 +34,19 @@ namespace Graph
         /**
          * @brief
         */
-        virtual Graph::NodeContent* GetNodeContent();
+        virtual GraphNs::NodeContent* GetNodeContent();
         
         /**
          * @brief
         */
-        virtual CoreCpp::StatusCode SetContent(Graph::NodeContent* pContent);
+        virtual CoreCpp::StatusCode SetContent(GraphNs::NodeContent* pContent);
 
         virtual std::string ToString();
 
         private:
         
         int32_t m_id;
-        Graph::NodeContent* m_content;
+        GraphNs::NodeContent* m_content;
 
     };
 }

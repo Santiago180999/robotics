@@ -9,7 +9,7 @@
 #include "CoreCppTypes.hpp"
 
 
-namespace Graph
+namespace GraphNs
 {
     class NodeContent : public CoreCpp::IContent
     {

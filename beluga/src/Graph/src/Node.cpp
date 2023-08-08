@@ -1,6 +1,6 @@
 #include "Node.hpp"
 
-namespace Graph
+namespace GraphNs
 {
     Node::Node(int32_t nodeId) : m_id{nodeId}
     {
@@ -17,12 +17,12 @@ namespace Graph
         return m_id;
     }
 
-    Graph::NodeContent* Node::GetNodeContent()
+    GraphNs::NodeContent* Node::GetNodeContent()
     {
         return m_content;
     }
 
-    CoreCpp::StatusCode Node::SetContent(Graph::NodeContent* pContent)
+    CoreCpp::StatusCode Node::SetContent(GraphNs::NodeContent* pContent)
     {
         m_content = std::move(pContent);
 

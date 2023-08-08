@@ -2,7 +2,7 @@
 
 #include "NodeContent.hpp"
 
-namespace Graph
+namespace GraphNs
 {
     CoreCpp::StatusCode NodeContent::PopulateContent()
     {
