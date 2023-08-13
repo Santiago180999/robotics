@@ -7,24 +7,37 @@
 
 #include "Node.hpp"
 #include "Edge.hpp"
+#include "CoreCppTypes.hpp"
 #include <map>
-#include <vector>
+#include <list>
 
 namespace GraphNs
 {
     /**
      * @brief
     */
-    class Graph
+    class Graph : public GraphNs::IGraphElement
     {
         public:
+
         Graph();
 
-        virtual GraphNs::Node NodeFactory(GraphNs::NodeContent& rParams) = 0; 
+        virtual ~Graph() {};
+
+        CoreCpp::StatusCode AddNode(int& outId); 
+
+        CoreCpp::StatusCode AddEdge(int source, int dest, double cost);
+
+        std::string ToString();
+
+        protected:
+        virtual GraphNs::Node NodeFactory(); 
 
         private:
-        std::map<GraphNs::Node*, std::vector<GraphNs::Node*>> m_adjNodes;
-        std::vector<GraphNs::Edge*> m_edges;
+        int m_numNodes = 0;
+        std::list<GraphNs::Node> m_nodes;
+        std::map<int, GraphNs::Node*> m_nodeMap;
+        
 
     };
 }

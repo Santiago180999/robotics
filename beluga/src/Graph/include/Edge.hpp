@@ -6,38 +6,44 @@
 #define EDGE_HPP
 
 #include "CoreCppTypes.hpp"
-#include "EdgeContent.hpp"
 #include "Node.hpp"
+#include "IGraphElement.hpp"
 
 namespace GraphNs
 {
+    class Node;
     /**
      * @brief
     */
-    class Edge
+    class Edge : public GraphNs::IGraphElement
     {
         public:
-        /**
-         * @brief
-        */
-        Edge(GraphNs::Node& rNodeA, GraphNs::Node& rNodeB);
+            /**
+             * @brief
+            */
+            Edge(Node* rDest, double cost);
 
-        /**
-         * @brief
-        */
-        std::pair<GraphNs::Node*, GraphNs::Node*> GetNodes();
+            virtual ~Edge() {};
 
-        /**
-         * @brief 
-        */
-        CoreCpp::StatusCode SetContent(GraphNs::EdgeContent* pContent);
-        
-        virtual std::string ToString();
+            /**
+             * @brief
+            */
+            Node* GetDestNode();
+
+            /**
+             * @brief
+            */
+            double GetCost();
+         
+            /**
+             * @brief 
+            */
+            virtual std::string ToString() override;
 
 
         private:
-        std::pair<GraphNs::Node*, GraphNs::Node*> m_nodes;
-        GraphNs::EdgeContent* m_content;
+            Node* m_destNode;
+            double m_cost;
     };
 }
 

@@ -4,51 +4,24 @@
 #include "Edge.hpp"
 #include "Graph.hpp"
 
-namespace GraphNs
-{
-    class Graph2d : public Graph
-    {
-        public:
-        Graph2d() = default;
-
-        GraphNs::Node NodeFactory(GraphNs::NodeContent& rParams) override
-        {
-            
-        };
-
-    };
-
-    struct NodeContent2d : public NodeContent
-    {
-        NodeContent2d(double x, double y);
-
-        double x = 0;
-        double y = 0;
-    
-    };
-}
-
 int main()
 {
-    int32_t id1 = 45;
-    int32_t id2 = 56;
+    GraphNs::Graph graph;
 
-    GraphNs::Node node(id1);
-    GraphNs::Node node2(id2);
+    int NodeIdA;
+    graph.AddNode(NodeIdA);
+    int NodeIdB;
+    graph.AddNode(NodeIdB);
+    int NodeIdC;
+    graph.AddNode(NodeIdC);
+    int NodeIdD;
+    graph.AddNode(NodeIdD);
 
-    
-    spdlog::info(node.GetId());
+    graph.AddEdge(NodeIdA, NodeIdB, 0);
+    graph.AddEdge(NodeIdB, NodeIdC, 21.0);
+    graph.AddEdge(NodeIdA, NodeIdD, 52.0);
 
-    //CoreCpp::StatusCode nCont = node.GetNodeContent()->PopulateContent();
-
-    // if(nCont == CoreCpp::SUCCESS)
-    // {
-    //     spdlog::info(nCont);
-    // }
-
-    GraphNs::Edge edge1(node, node2);
-
-    spdlog::info(edge1.ToString());
+    spdlog::info(graph.ToString());
 
     return 0;
 }

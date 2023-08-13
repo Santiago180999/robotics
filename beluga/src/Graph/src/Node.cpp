@@ -1,8 +1,8 @@
 #include "Node.hpp"
-
+#include "spdlog/spdlog.h"
 namespace GraphNs
 {
-    Node::Node(int32_t nodeId) : m_id{nodeId}
+    Node::Node(int nodeId) : m_id{nodeId}
     {
         // nothing
     }
@@ -12,21 +12,31 @@ namespace GraphNs
         return this;
     }
 
-    int32_t Node::GetId()
+    int Node::GetId()
     {
         return m_id;
     }
 
-    GraphNs::NodeContent* Node::GetNodeContent()
-    {
-        return m_content;
+    CoreCpp::StatusCode Node::AddEdge(GraphNs::Edge* newEdge)
+    {   
+        size_t oldSize = m_edges.size();
+        m_edges.push_back(*newEdge);
+
+        if (m_edges.size() > oldSize)
+        {
+            return CoreCpp::SUCCESS;
+        }
+        else 
+        {
+            spdlog::error("failed to add new edge");
+            return CoreCpp::Failure;
+        }
+        
     }
 
-    CoreCpp::StatusCode Node::SetContent(GraphNs::NodeContent* pContent)
+    std::list<GraphNs::Edge> Node::GetEdges()
     {
-        m_content = std::move(pContent);
-
-        return CoreCpp::SUCCESS;
+        return m_edges;
     }
 
     std::string Node::ToString()

@@ -2,30 +2,27 @@
 
 namespace GraphNs
 {
-    Edge::Edge(GraphNs::Node& rNodeA, GraphNs::Node& rNodeB)
+    Edge::Edge(GraphNs::Node* rDest, double cost) : m_destNode{rDest}, m_cost{cost}
     {
-        m_nodes = std::make_pair<GraphNs::Node*, GraphNs::Node*>(&rNodeA, &rNodeB);
+
     }
 
-    std::pair<GraphNs::Node*, GraphNs::Node*> Edge::GetNodes()
+    GraphNs::Node* Edge::GetDestNode()
     {
-        return m_nodes;
+        return m_destNode;
     }
 
-    CoreCpp::StatusCode Edge::SetContent(GraphNs::EdgeContent* pContent)
+    double Edge::GetCost()
     {
-        m_content = std::move(pContent);
-
-        // write a check to make sure the content is passed correctly
-        return CoreCpp::SUCCESS;
+        return m_cost;
     }
 
     std::string Edge::ToString()
-    {
-        std::string NodeA, NodeB;
-        NodeA = m_nodes.first->ToString();
-        NodeB = m_nodes.second->ToString();
-
-        return NodeA + std::string(" - ") + NodeB + "\n";
+    {   
+        if (m_cost == 0)
+        {
+            return std::string(", ") + m_destNode->ToString();
+        }
+        else return std::string(", -") + std::to_string(m_cost) + std::string(" - ") + m_destNode->ToString();
     }
 }

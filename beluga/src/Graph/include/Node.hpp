@@ -6,47 +6,56 @@
 #ifndef NODE_HPP
 #define NODE_HPP
 
+#include <list>
 #include "INode.hpp"
-#include "NodeContent.hpp"
 #include "CoreCppTypes.hpp"
+#include "IGraphElement.hpp"
+#include "Edge.hpp"
+
 
 
 namespace GraphNs
 {
+    class Edge;
     /**
      * @brief Class implementing the node interface
     */
-    class Node : public GraphNs::INode
+    class Node : public GraphNs::INode, GraphNs::IGraphElement
     {
         public:
-        /**
-         * @brief
-        */
-        Node(int32_t nodeId);
-        /**
-         * @brief
-        */
-        virtual INode* GetNode() override;
-        /**
-         * @brief
-        */
-        virtual int32_t GetId() override;
-        /**
-         * @brief
-        */
-        virtual GraphNs::NodeContent* GetNodeContent();
-        
-        /**
-         * @brief
-        */
-        virtual CoreCpp::StatusCode SetContent(GraphNs::NodeContent* pContent);
+            Node() = default;
+            /**
+             * @brief
+            */
+            Node(int nodeId);
 
-        virtual std::string ToString();
+            virtual ~Node() {};
+            /**
+             * @brief
+            */
+            INode* GetNode() override;
+            /**
+             * @brief
+            */
+            int GetId() override;
+
+            /**
+             * @brief
+            */
+            CoreCpp::StatusCode AddEdge(Edge* newEdge);
+            /**
+             * @brief
+            */
+            std::list<Edge> GetEdges(); 
+            /**
+             * @brief 
+            */
+            virtual std::string ToString() override;
+            
 
         private:
-        
-        int32_t m_id;
-        GraphNs::NodeContent* m_content;
+            int m_id;
+            std::list<Edge> m_edges;
 
     };
 }

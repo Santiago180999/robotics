@@ -13,7 +13,7 @@ namespace GraphNs
     class INode
     {
         public:
-        INode() = default;
+        virtual ~INode() {};
 
         /**
         * @brief Get the pointer to the current node
@@ -23,12 +23,7 @@ namespace GraphNs
         /**
          * @brief Get the identification of the node
         */
-        virtual int32_t GetId() = 0;
-
-        /**
-         * @brief Convert the node to a string representation
-        */
-        virtual std::string ToString() = 0;
+        virtual int GetId() = 0;
     };
 }
 
