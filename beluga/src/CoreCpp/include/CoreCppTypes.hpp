@@ -7,7 +7,7 @@
 
 namespace CoreCpp
 {
-    typedef int32_t StatusCode;
+    typedef int StatusCode;
 
     enum ErrorCodes : StatusCode
     {
