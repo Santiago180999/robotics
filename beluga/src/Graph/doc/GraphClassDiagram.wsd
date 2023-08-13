@@ -3,16 +3,16 @@
 class Graph
 
 interface INode
+interface IGraphElement
 class Node
 class Edge
-class NodeContent
-class EdgeContent
 
 
-INode <|-- Node
+Graph ---|> IGraphElement
+Node --|> IGraphElement
+Edge --|> IGraphElement
+Node --|>INode
 Graph *-- "*" Node
-Graph *-- "*" Edge
-Edge *-- EdgeContent
-Node *-- NodeContent
-Node - "*" Edge
-Edge - "2" Node
+
+Node o- "*" Edge
+Edge o- "2" Node
