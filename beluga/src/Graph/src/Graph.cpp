@@ -3,16 +3,16 @@
 
 namespace GraphNs
 {
-    Graph::Graph()
+    Graph::Graph(CoreCpp::DocumentReader& rReader) : m_rReader{rReader}
     {
-        
+        BuildGraph();
     }
 
-    GraphNs::Node Graph::NodeFactory()
+    GraphNs::Node* Graph::NodeFactory()
     {
         int NodeId = m_numNodes;
         Node* out = new Node(NodeId);
-        return *out;
+        return out;
     }
 
     CoreCpp::StatusCode Graph::AddNode(int& outId)
@@ -23,8 +23,8 @@ namespace GraphNs
 
         if (m_nodes.size() > oldSize)
         {
-            outId = m_nodes.back().GetId();
-            std::pair<int, GraphNs::Node*> newNode = std::make_pair<int, GraphNs::Node*>(m_nodes.back().GetId(), &m_nodes.back());
+            outId = m_nodes.back()->GetId();
+            std::pair<int, GraphNs::Node*> newNode = std::make_pair<int, GraphNs::Node*>(m_nodes.back()->GetId(), &(*m_nodes.back()));
             m_nodeMap.insert(newNode);
              
             return CoreCpp::SUCCESS;
@@ -51,20 +51,47 @@ namespace GraphNs
 
     std::string Graph::ToString()
     {
-        std::string out;
+        std::string out = "\n";
 
         for (auto &node : m_nodes)
         {
-            out = out + node.ToString() + ": ";
-
-            for (auto &edge : node.GetEdges())
+            for (auto &edge : node->GetEdges())
             {
-                out = out + edge.ToString();
+                out = out + "[" + node->ToString() + edge.ToString() + "]\n";
             }
-
-            out = out + "\n";
         }
 
         return out;
+    }
+
+    CoreCpp::StatusCode Graph::BuildGraph()
+    {
+        CoreCpp::StatusCode status;
+        nlohmann::json Nodes = m_rReader.m_doc.at("Nodes");
+        nlohmann::json Edges = m_rReader.m_doc.at("Edges");
+        int outId;
+        for (auto& node : Nodes)
+        {
+            status = AddNode(outId);
+
+            if (outId != node)
+            {
+                spdlog::error("Object node id does not match file in node id");
+                return CoreCpp::Failure;
+            }
+        }
+        if(m_numNodes == m_rReader.m_doc.at("NumNodes"))
+        {
+            for (auto& edge : Edges)
+            {
+                status = AddEdge(edge[0], edge[1]);
+            }
+        }
+        else 
+        {
+            spdlog::error("Number of Nodes in file does not match number of nodes read in");
+            return CoreCpp::Failure;
+        }
+        return status;
     }
 }

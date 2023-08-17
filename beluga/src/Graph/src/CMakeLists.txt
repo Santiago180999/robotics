@@ -4,6 +4,8 @@ add_library(Graph
     Graph.cpp
     Node.cpp
     Edge.cpp
+    #GenericContentNode.cpp
+    #GenericContentGraph.cpp
     )
 
 target_link_libraries(
@@ -15,6 +17,7 @@ target_link_libraries(
     Graph
     PRIVATE 
         spdlog::spdlog
+        nlohmann_json::nlohmann_json
 )
 
 target_include_directories(

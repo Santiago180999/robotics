@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 
-add_library(CoreCpp placeholder.cpp)
+add_library(CoreCpp DocumentReader.cpp)
 
 target_include_directories(
     CoreCpp
