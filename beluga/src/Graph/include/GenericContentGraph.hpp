@@ -11,11 +11,14 @@ class ContentGraph : public GraphNs::Graph
     public:
     ContentGraph(CoreCpp::DocumentReader& rReader);
 
-    ~ContentGraph() override {};
+    ~ContentGraph() override = default;
 
     GraphNs::Node* NodeFactory() override; 
 
     CoreCpp::StatusCode BuildGraph() override;
+
+
+    CoreCpp::StatusCode PopulateGraph() override;
 
 };
 

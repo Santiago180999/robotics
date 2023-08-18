@@ -50,7 +50,7 @@ namespace GraphNs
             /**
              * @brief 
             */
-            virtual std::string ToString() override;
+            std::string ToString() override;
             
 
         private:

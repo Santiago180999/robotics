@@ -4,8 +4,8 @@ add_library(Graph
     Graph.cpp
     Node.cpp
     Edge.cpp
-    #GenericContentNode.cpp
-    #GenericContentGraph.cpp
+    GenericContentNode.cpp
+    GenericContentGraph.cpp
     )
 
 target_link_libraries(

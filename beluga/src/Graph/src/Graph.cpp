@@ -5,7 +5,6 @@ namespace GraphNs
 {
     Graph::Graph(CoreCpp::DocumentReader& rReader) : m_rReader{rReader}
     {
-        BuildGraph();
     }
 
     GraphNs::Node* Graph::NodeFactory()
@@ -14,6 +13,12 @@ namespace GraphNs
         Node* out = new Node(NodeId);
         return out;
     }
+
+    GraphNs::Node* Graph::GetNode(int nodeId)
+    {
+        return m_nodeMap.at(nodeId);
+    }
+
 
     CoreCpp::StatusCode Graph::AddNode(int& outId)
     {
@@ -74,17 +79,18 @@ namespace GraphNs
         {
             status = AddNode(outId);
 
-            if (outId != node)
+            if (outId != node.at("id"))
             {
                 spdlog::error("Object node id does not match file in node id");
                 return CoreCpp::Failure;
             }
+            
         }
         if(m_numNodes == m_rReader.m_doc.at("NumNodes"))
         {
             for (auto& edge : Edges)
             {
-                status = AddEdge(edge[0], edge[1]);
+                status = AddEdge(edge.at("src"), edge.at("dest"), edge.at("cost"));
             }
         }
         else 
@@ -93,5 +99,11 @@ namespace GraphNs
             return CoreCpp::Failure;
         }
         return status;
+    }
+
+    CoreCpp::StatusCode Graph::PopulateGraph()
+    {
+        // nothing defined at this level
+        return CoreCpp::SUCCESS;
     }
 }

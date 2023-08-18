@@ -4,44 +4,41 @@
 #include "Edge.hpp"
 #include "Graph.hpp"
 #include "DocumentReader.hpp"
-//#include "GenericContentGraph.hpp"
+#include "GenericContentGraph.hpp"
 
+
+// file show how to use the base graph class and the generic content graph class
+// the proper creation of a graph depends on the json file to be formatted properly
 int main()
 {
-/*     GraphNs::Graph graph;
-
-    int NodeIdA;
-    graph.AddNode(NodeIdA);
-    int NodeIdB;
-    graph.AddNode(NodeIdB);
-    int NodeIdC;
-    graph.AddNode(NodeIdC);
-    int NodeIdD;
-    graph.AddNode(NodeIdD);
-
-    graph.AddEdge(NodeIdA, NodeIdB, 0);
-    graph.AddEdge(NodeIdB, NodeIdC, 21.0);
-    graph.AddEdge(NodeIdA, NodeIdD, 52.0); */
-
+    // creting basic graph, no content exercises the simple node factory and graph builder
     std::string graphFilePath("/home/santi/dolphin/robotics/beluga/src/Graph/test/testGraph/graph.json");
 
     CoreCpp::DocumentReader graphJson(graphFilePath);
 
     GraphNs::Graph graph(graphJson);
+    graph.BuildGraph();
 
     spdlog::info(graph.ToString());
 
-/*     ContentGraph genericGraph;
-    genericGraph.AddNode(NodeIdA);
-    genericGraph.AddNode(NodeIdB);
-    genericGraph.AddNode(NodeIdC);
-    genericGraph.AddNode(NodeIdD);
+    // creating a generic content graph, exercises the graph builder and populator
+    std::string contentGraphFilePath("/home/santi/dolphin/robotics/beluga/src/Graph/test/testGraph/contentGraph.json");
+    
+    CoreCpp::DocumentReader contentGraphJson(contentGraphFilePath);
 
-    genericGraph.AddEdge(NodeIdA, NodeIdB, 0);
-    genericGraph.AddEdge(NodeIdB, NodeIdC, 15.0);
-    genericGraph.AddEdge(NodeIdA, NodeIdD, 21.0);
+    ContentGraph contentGraph(contentGraphJson);
+    contentGraph.BuildGraph();
 
-    spdlog::info(genericGraph.ToString()); */
+    spdlog::info(contentGraph.ToString());
+
+
+    // testing getting the content in the node
+    ContentNode* node5 = dynamic_cast<ContentNode*>(contentGraph.GetNode(4));
+    double x5, y5;
+    node5->GetContent(x5, y5);
+
+    spdlog::info(std::to_string(x5));
+    spdlog::info(std::to_string(y5));
 
     return 0;
 }

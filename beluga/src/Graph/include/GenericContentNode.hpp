@@ -10,9 +10,12 @@ class ContentNode : public GraphNs::Node
     public:
         ContentNode(int nodeId);
         ContentNode(int nodeId, double x, double y);
+        ~ContentNode() override = default;
 
         CoreCpp::StatusCode GetContent(double &x, double &y);
         CoreCpp::StatusCode SetContent(double x, double y);
+
+        
 
 
     private:

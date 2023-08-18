@@ -27,6 +27,12 @@ namespace GraphNs
 
         virtual ~Graph() {};
 
+
+        /**
+         * @brief 
+        */
+        GraphNs::Node* GetNode(int nodeId);
+
         /**
          * @brief Creates a new node and adds it to the graph. 
         */
@@ -50,6 +56,8 @@ namespace GraphNs
          * @brief Constructs the graph using the content in the file
         */
         virtual CoreCpp::StatusCode BuildGraph();
+
+        virtual CoreCpp::StatusCode PopulateGraph();
         
         protected:
         CoreCpp::DocumentReader& m_rReader;
