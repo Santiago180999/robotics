@@ -1,0 +1,27 @@
+{
+    "NumNodes" : 5,
+    "Nodes" : [
+        {"id" : 0},
+        {"id" : 1},
+        {"id" : 2},
+        {"id" : 3}, 
+        {"id" : 4}
+    ],
+    "Edges" : [
+        {"src" : 0,
+        "dest" : 1,
+        "cost" : 0.0},
+        {"src" : 1,
+        "dest" : 3,
+        "cost" : 0.0},
+        {"src" : 0,
+        "dest" : 2,
+        "cost" : 0.0},
+        {"src" : 2,
+        "dest" : 4,
+        "cost" : 0.0},
+        {"src" : 4,
+        "dest" : 3,
+        "cost" : 0.0}
+    ]
+}

@@ -1,0 +1,18 @@
+@startuml GraphUmlDiagram
+
+class Graph
+
+interface INode
+interface IGraphElement
+class Node
+class Edge
+
+
+Graph ---|> IGraphElement
+Node --|> IGraphElement
+Edge --|> IGraphElement
+Node --|>INode
+Graph *-- "*" Node
+
+Node o- "*" Edge
+Edge o- "2" Node
