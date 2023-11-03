@@ -1,10 +1,9 @@
 
 #include "Node.hpp"
 #include "spdlog/spdlog.h"
-#include "Edge.hpp"
 #include "Graph.hpp"
 #include "DocumentReader.hpp"
-#include "GenericContentGraph.hpp"
+#include "Graph2d.hpp"
 
 
 // file show how to use the base graph class and the generic content graph class
@@ -22,19 +21,19 @@ int main()
     spdlog::info(graph.ToString());
 
     // creating a generic content graph, exercises the graph builder and populator
-    std::string contentGraphFilePath("/home/santi/dolphin/robotics/beluga/src/Graph/test/testGraph/contentGraph.json");
+    std::string Graph2dFilePath("/home/santi/dolphin/robotics/beluga/src/Graph/test/testGraph/Graph2d.json");
     
-    CoreCpp::DocumentReader contentGraphJson(contentGraphFilePath);
+    CoreCpp::DocumentReader Graph2dJson(Graph2dFilePath);
 
-    ContentGraph contentGraph(contentGraphJson);
-    contentGraph.BuildGraph();
+    GraphNs::Graph2d Graph2d(Graph2dJson);
+    Graph2d.BuildGraph();
 
-    spdlog::info(contentGraph.ToString());
+    spdlog::info(Graph2d.ToString());
 
 
     // testing getting the content in the node
-    ContentNode* node5 = dynamic_cast<ContentNode*>(contentGraph.GetNode(4));
-    double x5, y5;
+    GraphNs::Node2d* node5 = Graph2d.GetNode(4);
+    float x5, y5;
     node5->GetContent(x5, y5);
 
     spdlog::info(std::to_string(x5));

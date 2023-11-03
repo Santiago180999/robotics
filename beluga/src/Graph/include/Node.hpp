@@ -10,17 +10,14 @@
 #include "INode.hpp"
 #include "CoreCppTypes.hpp"
 #include "IGraphElement.hpp"
-#include "Edge.hpp"
-
 
 
 namespace GraphNs
 {
-    class Edge;
     /**
      * @brief Class implementing the node interface
     */
-    class Node : public GraphNs::INode, GraphNs::IGraphElement
+    class Node : public GraphNs::INode
     {
         public:
             Node() = default;
@@ -29,24 +26,13 @@ namespace GraphNs
             */
             Node(int nodeId);
 
-            virtual ~Node() {};
-            /**
-             * @brief
-            */
-            INode* GetNode() override;
+            ~Node() {};
+
             /**
              * @brief
             */
             int GetId() override;
 
-            /**
-             * @brief
-            */
-            CoreCpp::StatusCode AddEdge(Edge* newEdge);
-            /**
-             * @brief
-            */
-            std::list<Edge> GetEdges(); 
             /**
              * @brief 
             */
@@ -55,7 +41,6 @@ namespace GraphNs
 
         private:
             int m_id;
-            std::list<Edge> m_edges;
 
     };
 }

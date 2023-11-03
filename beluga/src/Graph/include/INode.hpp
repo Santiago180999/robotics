@@ -5,20 +5,16 @@
 #ifndef INODE_HPP
 #define INODE_HPP
 
+#include "IGraphElement.hpp"
 #include <string>
 #include "CoreCppTypes.hpp"
 
 namespace GraphNs 
 {
-    class INode
+    class INode: public IGraphElement
     {
         public:
         virtual ~INode() {};
-
-        /**
-        * @brief Get the pointer to the current node
-        */
-        virtual INode* GetNode() = 0;
 
         /**
          * @brief Get the identification of the node

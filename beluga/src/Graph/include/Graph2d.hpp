@@ -1,36 +1,25 @@
-/**
- * @brief 
-*/
 
-#ifndef GRAPH_HPP
-#define GRAPH_HPP
 
-#include "IGraph.hpp"
-#include "Node.hpp"
-#include "CoreCppTypes.hpp"
-#include "DocumentReader.hpp"
-#include <map>
-#include <list>
+#ifndef GENERIC_CONTENT_GRAPH_HPP
+#define GENERIC_CONTENT_GRAPH_HPP
+
+#include "Graph.hpp"
+#include "Node2d.hpp"
+
 
 namespace GraphNs
 {
-    /**
-     * @brief Base graph class 
-    */
-    class Graph : public GraphNs::IGraph
+    class Graph2d : public GraphNs::IGraph
     {
         public:
-        /**
-         * @brief Constructs a graph using a file 
-        */
-        Graph(CoreCpp::DocumentReader& rReader);
+        Graph2d(CoreCpp::DocumentReader& rReader);
 
-        ~Graph() {};
+        ~Graph2d() {};
 
         /**
          * @brief 
         */
-        virtual GraphNs::Node* GetNode(int nodeId);
+        virtual GraphNs::Node2d* GetNode(int nodeId);
 
         /**
          * @brief Creates a new node and adds it to the graph. 
@@ -50,7 +39,7 @@ namespace GraphNs
         /**
          * @brief Calls constructor for the required node
         */
-        GraphNs::Node* NodeFactory() override; 
+        GraphNs::Node2d* NodeFactory() override; 
 
         /**
          * @brief Constructs the graph using the content in the file
@@ -65,11 +54,10 @@ namespace GraphNs
         private:
         CoreCpp::DocumentReader& m_rReader;
         int m_numNodes = 0;
-        std::map<int, GraphNs::Node*> m_nodes;
+        std::map<int, GraphNs::Node2d*> m_nodes;
         std::map<int, std::vector<int>> m_edges;
+
     };
 }
-
-
 
 #endif

@@ -73,6 +73,9 @@
         "any": "cpp",
         "codecvt": "cpp",
         "ranges": "cpp",
-        "valarray": "cpp"
+        "valarray": "cpp",
+        "strstream": "cpp",
+        "cfenv": "cpp",
+        "variant": "cpp"
     }
 }

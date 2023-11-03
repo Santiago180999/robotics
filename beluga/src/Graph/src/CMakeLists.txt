@@ -3,9 +3,8 @@ cmake_minimum_required(VERSION 3.15)
 add_library(Graph
     Graph.cpp
     Node.cpp
-    Edge.cpp
-    GenericContentNode.cpp
-    GenericContentGraph.cpp
+    Node2d.cpp
+    Graph2d.cpp
     )
 
 target_link_libraries(

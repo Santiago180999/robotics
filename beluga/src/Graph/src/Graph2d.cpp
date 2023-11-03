@@ -1,29 +1,29 @@
-#include "Graph.hpp"
+#include "Graph2d.hpp"
 #include "spdlog/spdlog.h"
-
+#include <iostream>
 namespace GraphNs
 {
-    Graph::Graph(CoreCpp::DocumentReader& rReader) : m_rReader{rReader}
+    Graph2d::Graph2d(CoreCpp::DocumentReader& rReader) : m_rReader{rReader}
     {
     }
 
-    Node* Graph::NodeFactory()
+    Node2d* Graph2d::NodeFactory()
     {
         int NodeId = m_numNodes;
-        Node* out = new Node(NodeId);
+        Node2d* out = new Node2d(NodeId);
         return out;
     }
 
-    Node* Graph::GetNode(int nodeId)
+    Node2d* Graph2d::GetNode(int nodeId)
     {
         return m_nodes.at(nodeId);
     }
 
-    CoreCpp::StatusCode Graph::AddNode(int& outId)
-    {   
+    CoreCpp::StatusCode Graph2d::AddNode(int& outId)
+    {
         int oldSize = m_nodes.size();
         m_nodes[m_numNodes] = NodeFactory();
-        
+
         if (m_nodes.size() > oldSize)
         {
             outId = m_numNodes;
@@ -35,16 +35,16 @@ namespace GraphNs
         {
             spdlog::error("failed to add new node");
             return CoreCpp::Failure;
-        }
+        } 
     }
 
-    CoreCpp::StatusCode Graph::AddEdge(int source, int dest)
+    CoreCpp::StatusCode Graph2d::AddEdge(int source, int dest)
     {
         m_edges[source].push_back(dest);
         return CoreCpp::SUCCESS;
     }
 
-    std::string Graph::ToString()
+    std::string Graph2d::ToString()
     {
         std::string out = "\n";
         int src, dest;
@@ -61,7 +61,8 @@ namespace GraphNs
         return out;
     }
 
-    CoreCpp::StatusCode Graph::BuildGraph()
+
+    CoreCpp::StatusCode Graph2d::BuildGraph()
     {
         CoreCpp::StatusCode status;
         nlohmann::json Nodes = m_rReader.m_doc.at("Nodes");
@@ -90,13 +91,32 @@ namespace GraphNs
             spdlog::error("Number of Nodes in file does not match number of nodes read in");
             return CoreCpp::Failure;
         }
+
+        status = PopulateGraph();
+
         return status;
     }
 
-    CoreCpp::StatusCode Graph::PopulateGraph()
+    CoreCpp::StatusCode Graph2d::PopulateGraph()
     {
-        // nothing defined at this level
-        return CoreCpp::SUCCESS;
-    }
+        CoreCpp::StatusCode status;
+        nlohmann::json Nodes = m_rReader.m_doc.at("Nodes");
+        nlohmann::json Edges = m_rReader.m_doc.at("Edges");
 
+        for (auto& node : Nodes)
+        {
+            int nId = node.at("id");
+            GraphNs::Node2d* cNode = m_nodes.at(nId);
+
+            status = cNode->SetContent(node.at("x"), node.at("y"));
+
+            if (status != CoreCpp::SUCCESS)
+            {
+                spdlog::error("Could not set content");
+                return CoreCpp::Failure;
+            }  
+            
+        }
+        return status;
+    }
 }
