@@ -11,12 +11,12 @@ namespace CoreCpp
 
     enum ErrorCodes : StatusCode
     {
-        Success = 0,
+        Advance = 0,
         Information = 1,
         Failure = -1
     };
 
-    constexpr StatusCode SUCCESS = CoreCpp::ErrorCodes::Success;
+    constexpr StatusCode SUCCESS = CoreCpp::ErrorCodes::Advance;
 }
 
 
