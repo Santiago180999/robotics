@@ -14,6 +14,7 @@ namespace CoreCpp
     class DocumentReader
     {
         public:
+        DocumentReader() = default;
         DocumentReader(std::string configFilePath);
 
         std::string m_configFilePath;
