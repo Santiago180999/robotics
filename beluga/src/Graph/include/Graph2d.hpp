@@ -12,7 +12,11 @@ namespace GraphNs
     class Graph2d : public GraphNs::IGraph
     {
         public:
+        Graph2d() = default;
+
         Graph2d(CoreCpp::DocumentReader& rReader);
+
+        Graph2d(Graph2d& rGraph);
 
         ~Graph2d() {};
 
@@ -51,8 +55,13 @@ namespace GraphNs
         */
         virtual CoreCpp::StatusCode PopulateGraph() override;
         
+        /**
+         * @brief Draw the graph, nodes by position and lines by nodes. 
+        */
+        CoreCpp::StatusCode Draw(olc::PixelGameEngine& rEngine) override;
+        
         private:
-        CoreCpp::DocumentReader& m_rReader;
+        CoreCpp::DocumentReader* m_pReader;
         int m_numNodes = 0;
         std::map<int, GraphNs::Node2d*> m_nodes;
         std::map<int, std::vector<int>> m_edges;

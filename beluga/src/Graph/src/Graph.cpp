@@ -99,4 +99,10 @@ namespace GraphNs
         return CoreCpp::SUCCESS;
     }
 
+    CoreCpp::StatusCode Graph::Draw(olc::PixelGameEngine& rEngine)
+    {
+        // nothing for now
+        return CoreCpp::SUCCESS;
+    }
+
 }

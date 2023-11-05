@@ -61,6 +61,11 @@ namespace GraphNs
          * @brief Populates the graph with the content if needed
         */
         virtual CoreCpp::StatusCode PopulateGraph() override;
+
+        /**
+         * @brief Draw the graph
+        */
+        CoreCpp::StatusCode Draw(olc::PixelGameEngine& rEngine) override;
         
         private:
         CoreCpp::DocumentReader& m_rReader;

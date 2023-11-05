@@ -10,7 +10,8 @@ add_library(Graph
 target_link_libraries(
     Graph
     PUBLIC
-        CoreCpp   
+        CoreCpp
+        PGE   
 )
 target_link_libraries(
     Graph

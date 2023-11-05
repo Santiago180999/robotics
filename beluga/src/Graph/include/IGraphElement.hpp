@@ -6,6 +6,7 @@
 #define IGRAPH_ELEMENT_HPP
 
 #include "CoreCppTypes.hpp"
+#include "olcPixelGameEngine.h"
 
 namespace GraphNs
 {
@@ -18,6 +19,11 @@ namespace GraphNs
              * @brief Convert the concrete class to print to terminal
             */
             virtual std::string ToString() = 0;
+
+            /**
+             * @brief Draw the concrete class using the olcPixelGameEngine
+            */
+            virtual CoreCpp::StatusCode Draw(olc::PixelGameEngine& rEngine) = 0;
     };
 }
 

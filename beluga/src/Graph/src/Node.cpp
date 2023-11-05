@@ -16,4 +16,10 @@ namespace GraphNs
     {
         return std::string("("+ std::to_string(m_id) + ")");
     }
+    
+    CoreCpp::StatusCode Node::Draw(olc::PixelGameEngine& rEngine)
+    {
+        // nothing for now
+        return CoreCpp::SUCCESS;
+    }
 }

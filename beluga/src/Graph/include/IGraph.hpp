@@ -8,6 +8,7 @@
 #include "INode.hpp"
 #include "CoreCppTypes.hpp"
 #include "DocumentReader.hpp"
+#include "olcPixelGameEngine.h"
 #include <map>
 #include <list>
 

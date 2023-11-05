@@ -1,9 +1,18 @@
 #include "Graph2d.hpp"
 #include "spdlog/spdlog.h"
+#include "DocumentReader.hpp"
+#include "olcPixelGameEngine.h"
 #include <iostream>
 namespace GraphNs
 {
-    Graph2d::Graph2d(CoreCpp::DocumentReader& rReader) : m_rReader{rReader}
+    Graph2d::Graph2d(CoreCpp::DocumentReader& rReader) : m_pReader{&rReader}
+    {
+    }
+
+    Graph2d::Graph2d(Graph2d& rGraph) : 
+        m_numNodes{rGraph.m_numNodes}, 
+        m_nodes{rGraph.m_nodes},
+        m_edges{rGraph.m_edges}
     {
     }
 
@@ -40,8 +49,17 @@ namespace GraphNs
 
     CoreCpp::StatusCode Graph2d::AddEdge(int source, int dest)
     {
+        size_t bef = m_edges[source].size();
         m_edges[source].push_back(dest);
-        return CoreCpp::SUCCESS;
+        if (m_edges[source].size() > bef)
+        {
+            return CoreCpp::SUCCESS;
+        }
+        else 
+        {
+            spdlog::error("failed to add new edge");
+            return CoreCpp::Failure;
+        }
     }
 
     std::string Graph2d::ToString()
@@ -65,8 +83,8 @@ namespace GraphNs
     CoreCpp::StatusCode Graph2d::BuildGraph()
     {
         CoreCpp::StatusCode status;
-        nlohmann::json Nodes = m_rReader.m_doc.at("Nodes");
-        nlohmann::json Edges = m_rReader.m_doc.at("Edges");
+        nlohmann::json Nodes = m_pReader->m_doc.at("Nodes");
+        nlohmann::json Edges = m_pReader->m_doc.at("Edges");
         int outId;
         for (auto& node : Nodes)
         {
@@ -79,7 +97,7 @@ namespace GraphNs
             }
             
         }
-        if(m_numNodes == m_rReader.m_doc.at("NumNodes"))
+        if(m_numNodes == m_pReader->m_doc.at("NumNodes"))
         {
             for (auto& edge : Edges)
             {
@@ -100,8 +118,8 @@ namespace GraphNs
     CoreCpp::StatusCode Graph2d::PopulateGraph()
     {
         CoreCpp::StatusCode status;
-        nlohmann::json Nodes = m_rReader.m_doc.at("Nodes");
-        nlohmann::json Edges = m_rReader.m_doc.at("Edges");
+        nlohmann::json Nodes = m_pReader->m_doc.at("Nodes");
+        nlohmann::json Edges = m_pReader->m_doc.at("Edges");
 
         for (auto& node : Nodes)
         {
@@ -118,5 +136,17 @@ namespace GraphNs
             
         }
         return status;
+    }
+
+    CoreCpp::StatusCode Graph2d::Draw(olc::PixelGameEngine& rEngine)
+    {
+
+        // lets start by drawing the nodes, without traversing the graph
+        for(auto& node : m_nodes)
+        {
+            node.second->Draw(rEngine);
+        }
+        
+        return CoreCpp::SUCCESS;
     }
 }

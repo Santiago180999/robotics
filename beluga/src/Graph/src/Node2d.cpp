@@ -1,4 +1,5 @@
 #include "Node2d.hpp"
+#include "olcPixelGameEngine.h"
 #include "spdlog/spdlog.h"
 
 namespace GraphNs
@@ -19,11 +20,6 @@ namespace GraphNs
         return m_id;
     }
 
-    std::string Node2d::ToString()
-    {
-        return std::string("("+ std::to_string(m_id) + ")");
-    }
-
     CoreCpp::StatusCode Node2d::GetContent(float &x, float &y)
     {
         x = m_content.x;
@@ -37,6 +33,18 @@ namespace GraphNs
         m_content.x = x;
         m_content.y = y;
 
+        return CoreCpp::SUCCESS;
+    }
+    
+    std::string Node2d::ToString()
+    {
+        return std::string("("+ std::to_string(m_id) + ")");
+    }
+
+    CoreCpp::StatusCode Node2d::Draw(olc::PixelGameEngine& rEngine)
+    {
+        olc::vf2d nodePos(m_content.x, m_content.y); 
+        rEngine.DrawCircle(nodePos, 5);
         return CoreCpp::SUCCESS;
     }
 }

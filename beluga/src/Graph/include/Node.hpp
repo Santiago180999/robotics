@@ -38,7 +38,7 @@ namespace GraphNs
             */
             std::string ToString() override;
             
-
+            CoreCpp::StatusCode Draw(olc::PixelGameEngine& rEngine) override;
         private:
             int m_id;
 
