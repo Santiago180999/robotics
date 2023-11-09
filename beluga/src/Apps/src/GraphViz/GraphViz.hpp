@@ -14,7 +14,6 @@ public:
 
 	bool OnUserUpdate(float fElapsedTime) override;
 
-private:
 	GraphNs::Graph2d m_graph;
 
 };
