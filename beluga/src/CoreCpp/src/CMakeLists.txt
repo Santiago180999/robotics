@@ -1,6 +1,12 @@
 cmake_minimum_required(VERSION 3.15)
 
-add_library(CoreCpp DocumentReader.cpp)
+add_executable(CoreCpp GraphReader2d.cpp)
+
+target_link_libraries(
+    CoreCpp
+    PUBLIC
+        spdlog::spdlog
+)
 
 target_include_directories(
     CoreCpp
