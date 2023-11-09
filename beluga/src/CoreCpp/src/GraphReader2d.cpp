@@ -163,10 +163,3 @@ namespace CoreCpp
         return CoreCpp::SUCCESS;
     }
 } // namespace CoreCpp
-
-int main()
-{
-    CoreCpp::GraphReader2d("/home/santi/dolphin/robotics/beluga/src/Graph/test/testGraph/Graph2d.csv", true);
-
-    return 0;
-}

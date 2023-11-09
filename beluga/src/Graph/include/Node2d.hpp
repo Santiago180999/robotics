@@ -9,9 +9,9 @@ namespace GraphNs
     class Node2d : public GraphNs::INode
     {
         public:
-        Node2d(int nodeId);
+        Node2d(int nodeId, float radius = 2);
         
-        Node2d(int nodeId, double x, double y);
+        Node2d(int nodeId, double x, double y, float radius = 2);
 
         ~Node2d() override = default;
 
@@ -39,10 +39,13 @@ namespace GraphNs
          * @brief Draw the node based on the 2D position in content. 
         */
        CoreCpp::StatusCode Draw(olc::PixelGameEngine& rEngine) override;
-        
+    
+
+
+        float m_radius;
     private:
         int m_id;
-
+        
         struct TwoDim
         {
             float x, y;

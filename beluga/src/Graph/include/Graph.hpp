@@ -8,7 +8,6 @@
 #include "IGraph.hpp"
 #include "Node.hpp"
 #include "CoreCppTypes.hpp"
-#include "DocumentReader.hpp"
 #include <map>
 #include <list>
 

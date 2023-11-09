@@ -1,7 +1,7 @@
 cmake_minimum_required(VERSION 3.15)
 
 add_library(Graph
-    Graph.cpp
+ #   Graph.cpp
     Node.cpp
     Node2d.cpp
     Graph2d.cpp

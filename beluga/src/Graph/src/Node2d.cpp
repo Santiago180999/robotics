@@ -4,12 +4,12 @@
 
 namespace GraphNs
 {
-    Node2d::Node2d(int nodeId) : m_id{nodeId}
+    Node2d::Node2d(int nodeId, float radius) : m_id{nodeId}, m_radius{radius}
     {
         
     }
 
-    Node2d::Node2d(int nodeId, double x, double y) : m_id{nodeId}
+    Node2d::Node2d(int nodeId, double x, double y, float radius) : m_id{nodeId}, m_radius{radius}
     {
         m_content.x = x;
         m_content.y = y;
@@ -44,7 +44,7 @@ namespace GraphNs
     CoreCpp::StatusCode Node2d::Draw(olc::PixelGameEngine& rEngine)
     {
         olc::vf2d nodePos(m_content.x, m_content.y); 
-        rEngine.DrawCircle(nodePos, 5);
+        rEngine.DrawCircle(nodePos, m_radius);
         return CoreCpp::SUCCESS;
     }
 }

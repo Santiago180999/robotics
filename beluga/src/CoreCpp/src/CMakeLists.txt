@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.15)
 
-add_executable(CoreCpp GraphReader2d.cpp)
+add_library(CoreCpp GraphReader2d.cpp)
 
 target_link_libraries(
     CoreCpp

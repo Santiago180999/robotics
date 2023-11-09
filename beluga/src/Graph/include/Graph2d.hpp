@@ -1,10 +1,9 @@
+#ifndef GRAPH_2D_HPP
+#define GRAPH_2D_HPP
 
-
-#ifndef GENERIC_CONTENT_GRAPH_HPP
-#define GENERIC_CONTENT_GRAPH_HPP
-
-#include "Graph.hpp"
+#include "IGraph.hpp"
 #include "Node2d.hpp"
+#include "GraphReader2d.hpp"
 
 
 namespace GraphNs
@@ -14,7 +13,7 @@ namespace GraphNs
         public:
         Graph2d() = default;
 
-        Graph2d(CoreCpp::DocumentReader& rReader);
+        Graph2d(CoreCpp::GraphReader2d& rReader);
 
         Graph2d(Graph2d& rGraph);
 
@@ -59,10 +58,21 @@ namespace GraphNs
          * @brief Draw the graph, nodes by position and lines by nodes. 
         */
         CoreCpp::StatusCode Draw(olc::PixelGameEngine& rEngine) override;
+
+        /**
+         * @brief Depth First Search of the graph
+         * @param pEngine - pointer to the engine, if nullptr dont draw. if null ptr draw
+        */
+        CoreCpp::StatusCode ExploreGraph(int CurrentNode, std::vector<int>& rDiscovered);
         
+        /**
+         * @brief Draws the edges between the nodes
+        */
+        CoreCpp::StatusCode DrawEdge(olc::PixelGameEngine& rEngine, int srcNode, int destNode);
+
         private:
-        CoreCpp::DocumentReader* m_pReader;
-        int m_numNodes = 0;
+        CoreCpp::GraphReader2d* m_pReader;
+        int m_numNodes = 0; 
         std::map<int, GraphNs::Node2d*> m_nodes;
         std::map<int, std::vector<int>> m_edges;
 
