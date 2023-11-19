@@ -36,10 +36,17 @@ namespace CoreCpp
         json Nodes = doc.at("Nodes");
         json Edges = doc.at("Edges");
         int numNodes = doc.at("NumNodes");
+        
+        for (auto& node : Nodes)
+        {
+            m_nodes.push_back(std::make_tuple(int(node.at("id")), int(node.at("x")), int(node.at("y"))));
+        }
 
-        m_nodes.push_back(std::make_tuple(int(Nodes.at("id")), int(Nodes.at("x")), int(Nodes.at("y"))));
-        m_edges.push_back(std::make_tuple(int(Edges.at("src")), int(Edges.at("dest")), float(Edges.at("cost"))));
-
+        for (auto& edge: Edges)
+        {
+            m_edges.push_back(std::make_tuple(int(edge.at("src")), int(edge.at("dest")), float(edge.at("cost"))));
+        }
+       
         if (numNodes != m_nodes.size())
         {
             spdlog::error("Number of Nodes in file does not match number of nodes read in");

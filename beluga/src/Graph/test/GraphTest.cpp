@@ -21,7 +21,7 @@ int main()
     spdlog::info(graph.ToString()); */
 
     // creating a generic content graph, exercises the graph builder and populator
-    std::string Graph2dFilePath("/home/santi/dolphin/robotics/beluga/src/Graph/test/testGraph/Graph2d.csv");
+    std::string Graph2dFilePath("/home/santi/robotics/beluga/src/Graph/test/testGraph/Graph2d.csv");
     
     CoreCpp::GraphReader2d Graph2dJson(Graph2dFilePath, true);
 

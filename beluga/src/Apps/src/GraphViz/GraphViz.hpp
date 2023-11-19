@@ -3,12 +3,13 @@
 
 #include "olcPixelGameEngine.h"
 #include "Graph2d.hpp"
+#include "GraphReader2d.hpp"
 
 // Override base class with your custom functionality
 class GraphViz : public olc::PixelGameEngine
 {
 public:
-	GraphViz(CoreCpp::DocumentReader& rReader);
+	GraphViz(CoreCpp::GraphReader2d& rReader);
 
 	bool OnUserCreate() override;
 

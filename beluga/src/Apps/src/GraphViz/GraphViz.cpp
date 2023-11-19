@@ -1,7 +1,7 @@
 #include "GraphViz.hpp"
 #include "spdlog/spdlog.h"
 
-GraphViz::GraphViz(CoreCpp::DocumentReader& rReader)
+GraphViz::GraphViz(CoreCpp::GraphReader2d& rReader)
 {
     // Name your application
     sAppName = "2D Graph Visualization";
@@ -29,9 +29,9 @@ bool GraphViz::OnUserUpdate(float fElapsedTime)
 int main()
 {
 	// creating a generic content graph, exercises the graph builder and populator
-    std::string Graph2dFilePath("/home/santi/dolphin/robotics/beluga/src/Graph/test/testGraph/Graph2d.json");
+    std::string Graph2dFilePath("/home/santi/robotics/beluga/src/Graph/test/testGraph/Graph2d.json");
     
-    CoreCpp::DocumentReader Graph2dJson(Graph2dFilePath);
+    CoreCpp::GraphReader2d Graph2dJson(Graph2dFilePath, false);
 	GraphViz demo(Graph2dJson);
 
 	if (demo.Construct(256, 240, 4, 4))
