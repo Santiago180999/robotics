@@ -9,9 +9,9 @@ namespace GraphNs
     class Node2d : public GraphNs::INode
     {
         public:
-        Node2d(int nodeId, float radius = 2);
+        Node2d(int nodeId, float radius = 4);
         
-        Node2d(int nodeId, double x, double y, float radius = 2);
+        Node2d(int nodeId, double x, double y, float radius = 4);
 
         ~Node2d() override = default;
 

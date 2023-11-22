@@ -29,9 +29,9 @@ bool GraphViz::OnUserUpdate(float fElapsedTime)
 int main()
 {
 	// creating a generic content graph, exercises the graph builder and populator
-    std::string Graph2dFilePath("/home/santi/robotics/beluga/src/Graph/test/testGraph/Graph2d.json");
+    std::string Graph2dFilePath("/home/santi/robotics/beluga/src/Apps/Scenes/Graph2d.csv");
     
-    CoreCpp::GraphReader2d Graph2dJson(Graph2dFilePath, false);
+    CoreCpp::GraphReader2d Graph2dJson(Graph2dFilePath, true);
 	GraphViz demo(Graph2dJson);
 
 	if (demo.Construct(256, 240, 4, 4))
