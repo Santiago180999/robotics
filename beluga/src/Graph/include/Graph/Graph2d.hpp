@@ -2,7 +2,7 @@
 #define GRAPH_2D_HPP
 
 #include "IGraph.hpp"
-#include "Node2d.hpp"
+#include "Node/Node2d.hpp"
 #include "GraphReader2d.hpp"
 
 
@@ -22,7 +22,7 @@ namespace GraphNs
         /**
          * @brief 
         */
-        virtual GraphNs::Node2d* GetNode(int nodeId);
+        GraphNs::Node2d* GetNode(int nodeId);
 
         /**
          * @brief Creates a new node and adds it to the graph. 
@@ -35,6 +35,21 @@ namespace GraphNs
         CoreCpp::StatusCode AddEdge(int source, int dest) override;
 
         /**
+         * @brief Get the graphreader 
+        */
+        CoreCpp::GraphReader2d* GetGraphReader();
+
+        /**
+         * @brief Accepts the visitor passed in 
+        */
+        CoreCpp::StatusCode Accept(IGraphVisitor& visitor) override;
+
+        /**
+         * @brief get the graph size
+        */
+        int GetGraphSize() override;
+
+        /**
          * @brief Prints the graph nicely to the terminal
         */
         std::string ToString();
@@ -43,16 +58,6 @@ namespace GraphNs
          * @brief Calls constructor for the required node
         */
         GraphNs::Node2d* NodeFactory() override; 
-
-        /**
-         * @brief Constructs the graph using the content in the file
-        */
-        CoreCpp::StatusCode BuildGraph() override;
-
-        /**
-         * @brief Populates the graph with the content if needed
-        */
-        virtual CoreCpp::StatusCode PopulateGraph() override;
         
         /**
          * @brief Draw the graph, nodes by position and lines by nodes. 

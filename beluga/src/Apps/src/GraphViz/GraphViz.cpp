@@ -8,7 +8,7 @@ GraphViz::GraphViz(CoreCpp::GraphReader2d& rReader)
 
     // build graph
     m_graph = GraphNs::Graph2d(rReader);
-    m_graph.BuildGraph();
+    m_graph.Accept(m_builder);
     spdlog::info(m_graph.ToString());
 }
 

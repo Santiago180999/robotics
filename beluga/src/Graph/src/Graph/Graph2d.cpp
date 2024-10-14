@@ -1,4 +1,4 @@
-#include "Graph2d.hpp"
+#include "Graph/Graph2d.hpp"
 #include "spdlog/spdlog.h"
 #include "olcPixelGameEngine.h"
 #include <iostream>
@@ -62,6 +62,23 @@ namespace GraphNs
         }
     }
 
+    CoreCpp::GraphReader2d* Graph2d::GetGraphReader() 
+    {
+        return m_pReader;
+    }
+
+    CoreCpp::StatusCode Graph2d::Accept(IGraphVisitor& visitor)
+    {
+        CoreCpp::StatusCode status;
+        status = visitor.VisitGraph2d(this);
+        return status;
+    }
+
+    int Graph2d::GetGraphSize() 
+    {
+        return m_numNodes;
+    }
+
     std::string Graph2d::ToString()
     {
         std::string out = "\n";
@@ -75,67 +92,7 @@ namespace GraphNs
                 out = out + "[" + "(" + std::to_string(src) + ")" + " - " + "(" + std::to_string(targ) + ")" + "]\n";
             }
         }
-
         return out;
-    }
-
-    // come back to improve this when visitor pattern is working
-    CoreCpp::StatusCode Graph2d::BuildGraph()
-    {
-        CoreCpp::StatusCode status;
-        auto& Nodes = m_pReader->m_nodes;
-        auto& Edges = m_pReader->m_edges;
-        int outId;
-        for (auto& node : Nodes)
-        {
-            status = AddNode(outId);
-
-            if (outId != std::get<0>(node))
-            {
-                spdlog::error("Object node id does not match file in node id");
-                return CoreCpp::Failure;
-            }
-            
-        }
-        if(m_numNodes == Nodes.size())
-        {
-            for (auto& edge : Edges)
-            {
-                status = AddEdge(std::get<0>(edge), std::get<1>(edge));
-            }
-        }
-        else 
-        {
-            spdlog::error("Number of Nodes in file does not match number of nodes read in");
-            return CoreCpp::Failure;
-        }
-
-        status = PopulateGraph();
-
-        return status;
-    }
-
-    CoreCpp::StatusCode Graph2d::PopulateGraph()
-    {
-        CoreCpp::StatusCode status;
-        auto& Nodes = m_pReader->m_nodes;
-        auto& Edges = m_pReader->m_edges;
-
-        for (auto& node : Nodes)
-        {
-            int nId = std::get<0>(node);
-            GraphNs::Node2d* cNode = m_nodes.at(nId);
-
-            status = cNode->SetContent(std::get<1>(node), std::get<2>(node));
-
-            if (status != CoreCpp::SUCCESS)
-            {
-                spdlog::error("Could not set content");
-                return CoreCpp::Failure;
-            }  
-            
-        }
-        return status;
     }
 
     CoreCpp::StatusCode Graph2d::Draw(olc::PixelGameEngine& rEngine)
@@ -151,10 +108,6 @@ namespace GraphNs
                 status = DrawEdge(rEngine, src.first, dest);
             }
         }
-
-        
-
-        
         return status;
     }
 

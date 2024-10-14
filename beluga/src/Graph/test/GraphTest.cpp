@@ -1,8 +1,7 @@
 
-#include "Node.hpp"
 #include "spdlog/spdlog.h"
-// #include "Graph.hpp"
-#include "Graph2d.hpp"
+#include "Visitor/GraphBuilderVisitor.hpp"
+#include "Graph/Graph2d.hpp"
 #include "GraphReader2d.hpp"
 
 
@@ -10,23 +9,15 @@
 // the proper creation of a graph depends on the json file to be formatted properly
 int main()
 {
-/*     // creting basic graph, no content exercises the simple node factory and graph builder
-    std::string graphFilePath("/home/santi/dolphin/robotics/beluga/src/Graph/test/testGraph/graph.json");
-
-    CoreCpp::DocumentReader graphJson(graphFilePath);
-
-    GraphNs::Graph graph(graphJson);
-    graph.BuildGraph();
-
-    spdlog::info(graph.ToString()); */
-
     // creating a generic content graph, exercises the graph builder and populator
     std::string Graph2dFilePath("/home/santi/robotics/beluga/src/Graph/test/testGraph/Graph2d.csv");
     
     CoreCpp::GraphReader2d Graph2dJson(Graph2dFilePath, true);
 
     GraphNs::Graph2d Graph2d(Graph2dJson);
-    Graph2d.BuildGraph();
+    GraphNs::GraphBuilderVisitor Builder;
+    // build the graph
+    Graph2d.Accept(Builder);
 
     spdlog::info(Graph2d.ToString());
 
