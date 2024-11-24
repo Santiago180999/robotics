@@ -7,3 +7,5 @@ To run the file, in the command prompt, run
 ```
 $ python3 BoothFunction.py
 ```
+
+no plots 

@@ -5,8 +5,10 @@ The data is generated for the hypercube with dimensions $x_i = [-20, 20]$, $i = 
 
 To run the file, in the command prompt, run 
 ```
-$ julia AckleyFunction.jl
+$ julia AckleyFunction.jl no
 ```
 
-TODO:
-If you want to see the plots, do this... 
+If you want to see the plots, pass the keyword "plots" after the function
+```
+$ julia AckleyFunction.jl plots
+```
