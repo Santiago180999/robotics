@@ -1,0 +1,1 @@
+# Create a function where the parameters of a quadratic function can be chosen. e.g. ax^2 + bx + c = y

@@ -1,0 +1,4 @@
+add_executable(Analysis Analysis.cpp)
+target_compile_features(Analysis PRIVATE cxx_std_17)
+
+target_link_libraries(Analysis PRIVATE OptimizationAlgorithms)
