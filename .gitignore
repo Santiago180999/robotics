@@ -1,4 +1,4 @@
-.gitignore
 beluga/build/
 medusa/build/
 medusa/out/
+.vscode

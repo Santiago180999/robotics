@@ -15,6 +15,7 @@ out_1d = [ackley(x) for x in in_1d]
 
 if ARGS[1] == string("plots")
     plot(in_1d, out_1d)
+    savefig("AckleyOneDim.png")
 end
 write_1d = [in_1d out_1d]
 writedlm("AckleyOneDim.csv", write_1d)
@@ -39,4 +40,5 @@ writedlm("AckleyTwoDim.csv", write_2d)
 if ARGS[1] == string("plots")
     nicePlot_2d = [ackley([x y], 20, 0.2, 2) for x in in_2d[:,1], y in in_2d[:,2]] # using non default values for a nice diagram
     surface(in_2d[:,1], in_2d[:,2], nicePlot_2d)
+    savefig("AckleyTwoDim.png")
 end
