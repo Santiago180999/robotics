@@ -2,10 +2,13 @@
 #define HITTABLE_H
 
 #include "rtweekend.hpp"
+class material;
+
 struct hit_record
 { 
     point3 p;
     vec3 normal;
+    shared_ptr<material> mat;
     double t;
     bool front_face;
 

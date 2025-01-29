@@ -39,4 +39,5 @@ inline double random_double(double min, double max)
 #include "ray.hpp"
 #include "vec3.hpp"
 #include "interval.hpp"
+#include "material.hpp"
 #endif
