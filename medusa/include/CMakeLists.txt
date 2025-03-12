@@ -1,0 +1,4 @@
+add_library(LinearAlgebra PUBLIC)
+target_include_directories(LinearAlgebra PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/LinearAlgebra)
+add_library(OptimizationAlgorithms PUBLIC)
+target_include_directories(OptimizationAlgorithms PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}/OptimizationAlgorithms)

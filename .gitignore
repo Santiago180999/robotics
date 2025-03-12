@@ -1,7 +1,7 @@
 beluga/build/
 medusa/build/
 medusa/out/
-medusa/scripts/algforopt-notebooks
+medusa/scripts/algforopt-notebooks-master
 medusa/scripts/Algorithms-for-Optimization-Python
 medusa/scripts/santi-notebook/.CondaPkg
 .vscode

@@ -1,0 +1,1 @@
+on 2025-03-11 i stopped working on this repo. I might come back to it, but for the time being, i need to prep for a presentation and ill use eigen math library for the lin alg

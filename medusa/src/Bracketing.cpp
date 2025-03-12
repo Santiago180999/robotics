@@ -94,5 +94,5 @@ float* Bracketing::BracketMinimum(float* data2d, int datalength, float xinit, fl
     pos = search(index, datalength, a);
     ya = *(data2d + pos) + 1;
 
-    return indexArr;
+    return index;
     }
