@@ -7,3 +7,9 @@ medusa/scripts/santi-notebook/.CondaPkg
 .vscode
 seahorse/CMakeLists.txt
 seahorse/build
+tiger/bin
+tiger/include
+tiger/lib
+tiger/lib64
+share/
+pyvenv.cfg
