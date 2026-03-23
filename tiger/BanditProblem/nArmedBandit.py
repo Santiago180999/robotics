@@ -138,7 +138,7 @@ def take_gradient_action(policy):
 def update_gradient_policy(policy, preferences):
 
     expPrefs = np.zeros(len(policy))
-    den = 1e-5
+    den = 0
     for b in range (len(policy)):
         expPrefs[b] = np.exp(preferences[b])
         den = den + expPrefs[b]
