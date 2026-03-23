@@ -13,3 +13,4 @@ tiger/lib
 tiger/lib64
 share/
 pyvenv.cfg
+tiger/__pycache__
