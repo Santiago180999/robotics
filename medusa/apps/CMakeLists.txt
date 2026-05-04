@@ -2,3 +2,6 @@ add_executable(Analysis Analysis.cpp)
 
 target_link_libraries(Analysis PRIVATE OptimizationAlgorithms)
 target_link_libraries(Analysis PRIVATE LinearAlgebra)
+
+add_executable(PlanningDemo PlanningDemo.cpp)
+target_link_libraries(PlanningDemo PRIVATE PathPlanning)
