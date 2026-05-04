@@ -1,0 +1,1 @@
+In this repo I want to implement a kinematics library based on the textbook "A Mathematical Introduction to Robotic Manipulation" using C++. Possibly also include the work done for the SAPIENT Study stuff :)
