@@ -36,6 +36,8 @@ namespace Grid
 
         void addWayPoint(WayPoint point);
 
+        WayPoint& findWayPointTo(Point point);
+
         void render(SDL_Renderer* renderer) override;
 
         private:

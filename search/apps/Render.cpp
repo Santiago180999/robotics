@@ -11,11 +11,27 @@ int main(int argc, char* argv[]) {
     SDL_Window* window = SDL_CreateWindow("SDL3 Grid World", SCREEN_WIDTH, SCREEN_HEIGHT, 0);
     SDL_Renderer* renderer = SDL_CreateRenderer(window, NULL);
 
+
+    uint bounds = GRID_SIZE;
+
     Grid::GridGenerator gen;
-    Grid::GridWorld world = gen.GenerateWorld(uint(20));
-    Grid::Path path;        
-    Grid::Point st = world.setStartCell(Grid::Point{4,6});
-    world.setGoalCell(Grid::Point{11,10});
+    Grid::GridWorld world = gen.GenerateWorld(bounds, Grid::MovementType::ORTHOGONAL);
+
+    bool success = false;
+
+    Grid::Point st, ed;
+    st = gen.GenerateRandomPoint(world, bounds);
+    ed = gen.GenerateRandomPoint(world, bounds);
+    printf("start: %i, %i\n", st.x, st.y);
+    printf("goal: %i, %i\n", ed.x, ed.y);
+
+    success = world.setStartCell(st);
+    success = world.setGoalCell(ed);
+
+    if (!success)
+    {
+        printf("failed to set st or goal cells\n");
+    }
 
     DepthFirstSearch solver;
     if (solver.solve(world, st))
@@ -35,7 +51,6 @@ int main(int argc, char* argv[]) {
     while (running) {
         while (SDL_PollEvent(&e)) {
             if (e.type == SDL_EVENT_QUIT) running = false;
-            world.handleInput(e);
         }
 
         SDL_SetRenderDrawColor(renderer, 20, 20, 20, 255);

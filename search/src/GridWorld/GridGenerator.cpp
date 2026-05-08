@@ -4,7 +4,7 @@ namespace Grid
 {
     GridGenerator::GridGenerator() : seed(), gen(seed()) {}
 
-    GridWorld GridGenerator::GenerateWorld(uint size)
+    GridWorld GridGenerator::GenerateWorld(uint size, MovementType moveType)
     {
         std::bernoulli_distribution dist(0.35);
         Grid2D grid(size, std::vector<CellType>(size, EMPTY));
@@ -20,6 +20,17 @@ namespace Grid
             }
         }
 
-        return GridWorld(grid);
+        return GridWorld(grid, moveType);
+    }
+
+    Point GridGenerator::GenerateRandomPoint(GridWorld& world, uint bounds)
+    {
+        std::uniform_int_distribution<> dist(0, bounds);
+        Point x = {-1, -1}; // initially invalid point
+        while (!world.isCellValid(x))
+        {
+            x = {dist(gen), dist(gen)};
+        } 
+        return x;
     }
 }

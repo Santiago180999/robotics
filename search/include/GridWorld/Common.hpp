@@ -17,7 +17,15 @@ namespace Grid
 
     using Grid2D = std::vector<std::vector<CellType>>;
 
-    struct Point { int x, y; };
+    struct Point 
+    { 
+        int x, y;
+        
+        bool operator== (const Point& rhs) const
+        {
+            return ((x == rhs.x) && (y == rhs.y));
+        }
+    };
 
     enum ActionType
     {
@@ -25,7 +33,11 @@ namespace Grid
         UP,
         DOWN, 
         LEFT, 
-        RIGHT
+        RIGHT, 
+        NORTHEAST,
+        NORTHWEST,
+        SOUTHEAST,
+        SOUTHWEST
     };
 }
 

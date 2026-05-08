@@ -28,24 +28,31 @@ bool DepthFirstSearch::solve(Grid::GridWorld& world, Grid::Point start)
         q.pop();
         if (world.isCellGoal(x)) 
         {
+            SetFinalPathBetween(start, x);
             return true;
         }
-        for (auto& act : world.ACTIONS)
+        for (auto& act : world.getActions())
         {
-            Grid::Point xp = world.takeAction(act, x);
+            Grid::Point xp = world.takeAction(act, x); // already checks for validity
             if (!isVisited(xp))
             {
-                visited.push_back(xp);
-                if (world.isCellEmpty(xp))
-                {                
-                    m_path.addWayPoint(Grid::WayPoint(x, xp, act, Grid::EntryType::EXPLORE));
-                    q.push(xp);
-                }
+                visited.push_back(xp);             
+                m_path.addWayPoint(Grid::WayPoint(x, xp, act, Grid::EntryType::EXPLORE));
+                q.push(xp);
             }
         }
     }
     return false;
 
+}
+
+void DepthFirstSearch::SetFinalPathBetween(Grid::Point startPoint, Grid::Point endPoint)
+{
+    if (startPoint == endPoint) return;
+    Grid::WayPoint& wp = m_path.findWayPointTo(endPoint); // point is destination, wp is the waypoint whose dest is point. 
+    wp.type = Grid::EntryType::FINAL;
+    SetFinalPathBetween(startPoint, wp.src); // go to the source and re do. 
+    return;
 }
 
 Grid::Path& DepthFirstSearch::getSolution() 

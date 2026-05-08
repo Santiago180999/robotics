@@ -11,7 +11,9 @@ namespace Grid
         public:
         GridGenerator();
 
-        GridWorld GenerateWorld(uint size);
+        GridWorld GenerateWorld(uint size, MovementType moveType);
+
+        Point GenerateRandomPoint(GridWorld& world, uint bounds);
 
         private:
         std::random_device seed;

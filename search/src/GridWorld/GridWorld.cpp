@@ -3,14 +3,26 @@
 
 namespace Grid
 {
-    GridWorld::GridWorld(int gridSize) : m_gridSize(gridSize), m_grid(m_gridSize, std::vector<CellType>(m_gridSize, EMPTY)) {
-        m_agentPos = {0, 0};
-        m_grid[m_agentPos.y][m_agentPos.x] = AGENT;
-    }
-
-    GridWorld::GridWorld(Grid2D& grid) : m_gridSize(grid.size()), m_grid(grid)
+    GridWorld::GridWorld(Grid2D& grid, MovementType type) : m_gridSize(grid.size()), m_grid(grid)
     {
         m_agentPos = {0, 0};
+        setActionList(type);
+    }
+
+    void GridWorld::setActionList(MovementType type)
+    {
+        switch (type)
+        {
+        case MovementType::ORTHOGONAL:
+            m_actions = {ActionType::INPLACE, ActionType::UP, ActionType::DOWN, ActionType::LEFT, ActionType::RIGHT};
+            break;
+        case MovementType::DIAGONAL:
+            m_actions = {ActionType::INPLACE, ActionType::UP, ActionType::DOWN, ActionType::LEFT, ActionType::RIGHT, ActionType::NORTHEAST, ActionType::NORTHWEST, ActionType::SOUTHEAST, ActionType::SOUTHWEST};
+            break;
+        default:
+            m_actions = {ActionType::INPLACE};
+            break;
+        }
     }
 
     const Grid2D& GridWorld::getGrid()
@@ -64,62 +76,57 @@ namespace Grid
         }
     }
 
+    const std::vector<ActionType>& GridWorld::getActions()
+    {
+        return m_actions;
+    }
+
+
     void GridWorld::setCellType(Point loc, CellType type)
     {
         m_grid[loc.y][loc.x] = type;
     }
 
-    Point GridWorld::setStartCell(Point loc)
+    bool GridWorld::setStartCell(Point loc)
     {
-        if (isCellEmpty(loc))
+        if (isCellValid(loc))
         {
             setCellType(loc, CellType::START);
-            return loc;
+            return true;
         }
-        else
+        else 
         {
-            Point x;
-            for (auto& act : ACTIONS)
-            {
-                x = takeAction(act, loc);
-                if (isCellEmpty(x))
-                {
-                    setCellType(x, CellType::START);   
-                    return x; 
-                }
-            }
-            setStartCell(x);
+            return false;
         }
+
     }
     
-    Point GridWorld::setGoalCell(Point loc)
+    bool GridWorld::setGoalCell(Point loc)
     {
-        if (isCellEmpty(loc))
+        if (isCellValid(loc) && m_grid[loc.y][loc.x] != CellType::START)
         {
             setCellType(loc, CellType::GOAL);
-            return loc;
+            return true;
         }
-        else
+        else 
         {
-            Point x;
-            for (auto& act : ACTIONS)
-            {
-                x = takeAction(act, loc);
-                if (isCellEmpty(x))
-                {
-                    setCellType(x, CellType::GOAL);   
-                    return x; 
-                }
-            }
-            setGoalCell(x);
+            return false;
         }
     }
 
     Point GridWorld::takeAction(ActionType action, Point loc)
     {
+        if (!isCellValid(loc) || !isValidAction(action))
+        {
+            return loc;
+        }
         Point out;
         switch (action)
         {
+        case ActionType::INPLACE:
+            out.x = loc.x;
+            out.y = loc.y;
+            break;
         case ActionType::UP:
             out.x = loc.x; 
             out.y = loc.y-1;
@@ -137,15 +144,62 @@ namespace Grid
             out.x = loc.x+1;
             out.y = loc.y;
             break;
+        case ActionType::NORTHEAST:
+            out.x = loc.x+1;
+            out.y = loc.y-1;
+            break;
+        case ActionType::NORTHWEST:
+            out.x = loc.x-1;
+            out.y = loc.y-1;
+            break;
+        case ActionType::SOUTHEAST:
+            out.x = loc.x+1;
+            out.y = loc.y+1;
+            break;
+        case ActionType::SOUTHWEST:
+            out.x = loc.x-1;
+            out.y = loc.y+1;
+            break;
         default:
             return loc;
             break;
         }
-        if (isCellInbounds(out))
+        if (isCellValid(out))
         {
             return out;
         }
         else return loc;
+    }
+
+    bool GridWorld::isValidAction(ActionType action)
+    {
+        for (auto& x : m_actions)
+        {
+            if (action == x)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    bool GridWorld::isCellValid(Point loc)
+    {
+        if (isCellInbounds(loc))
+        {
+            if (isCellEmpty(loc))
+            {
+                return true;
+            }
+            else 
+            {
+                return false;
+            }
+        }
+        else 
+        {
+            return false;
+        }
     }
 
     bool GridWorld::isCellInbounds(Point loc)

@@ -1,11 +1,12 @@
 #include "GridWorld/Path.hpp"
+#include <algorithm>
 
 const int ARROW_WIDTH = 3;
 const float EPS = 0.5;
 
 namespace Grid
 {
-     void drawArrow(SDL_Renderer* renderer, WayPoint& waypoint)
+    void drawArrow(SDL_Renderer* renderer, WayPoint& waypoint)
     {
         float arrowHeadSize = 8;
         float xs = waypoint.src.x * CELL_SIZE + CELL_SIZE/2;
@@ -18,18 +19,24 @@ namespace Grid
         // Define the three corners relative to a center point (x, y)
         SDL_Vertex vertices[3];
         float alpha = 0;
+        SDL_FColor color;
+
         switch (waypoint.type)
         {
         case EntryType::FINAL:
-            alpha = 0.8;
+            alpha = 1;
+            color =  { 0.2, 0.2, 0.9, alpha }; 
             break;
         case EntryType::EXPLORE:
-            alpha = 0.3;
+            alpha = 1;
+            color =  { 0.95, 0.89, 0.57, alpha }; 
             break;
         default: 
+            alpha = 1;
+            color =  { 1, 1, 1, alpha }; 
             break;
         }
-        SDL_FColor color = { 0.96, 0.82, 0.15, alpha }; 
+        
         SDL_SetRenderDrawColor(renderer, color.r*256, color.g*256, color.b*256, color.a*256);
         switch (waypoint.action)
         {
@@ -94,7 +101,7 @@ namespace Grid
             vertices[2].color = color; 
             break;
         default:
-            break;
+            return;
         }
         SDL_RenderGeometry(renderer, NULL, vertices, 3, NULL, 0);
         SDL_RenderFillRect(renderer, &rect);
@@ -112,6 +119,21 @@ namespace Grid
         {
             drawArrow(renderer, wp);
         }
+    }
+
+    WayPoint& Path::findWayPointTo(Point point)
+    {
+        auto cond = [&](WayPoint wp){
+            if (wp.dest == point)
+            {
+                return true;
+            }
+            else return false;
+        };
+
+        auto it = std::find_if(m_path.begin(), m_path.end(), cond);
+
+        return *it;
     }
 
 }

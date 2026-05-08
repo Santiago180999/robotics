@@ -13,6 +13,8 @@ class DepthFirstSearch
 
     Grid::Path& getSolution();
 
+    void SetFinalPathBetween(Grid::Point startPoint, Grid::Point endPoint);
+
     private:
     Grid::Path m_path;
 };
