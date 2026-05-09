@@ -6,8 +6,28 @@ const float EPS = 0.5;
 
 namespace Grid
 {
-    void drawArrow(SDL_Renderer* renderer, WayPoint& waypoint)
+    Path::Path(Grid::GridWorld* world) : p_world(world) {}
+
+    Path::Path(Path& other)
     {
+        m_path = other.m_path;
+        p_world = other.p_world;
+    }
+
+    Path::~Path()
+    {
+        p_world = nullptr;
+        m_path.clear();
+    }
+
+    void Path::drawArrow(SDL_Renderer* renderer, WayPoint& waypoint)
+    {
+        int width;
+        int height;
+        SDL_GetCurrentRenderOutputSize(renderer, &width, &height);
+        const char* x = SDL_GetError();
+        size_t gridSize = p_world->getGrid().size();
+        float CELL_SIZE = (float)width / gridSize;
         float arrowHeadSize = 8;
         float xs = waypoint.src.x * CELL_SIZE + CELL_SIZE/2;
         float ys = waypoint.src.y * CELL_SIZE + CELL_SIZE/2;

@@ -3,6 +3,7 @@
 
 #include <random>
 #include "GridWorld/GridWorld.hpp"
+#include <memory>
 
 namespace Grid
 {
@@ -11,9 +12,9 @@ namespace Grid
         public:
         GridGenerator();
 
-        GridWorld GenerateWorld(uint size, MovementType moveType);
+        std::unique_ptr<GridWorld> GenerateWorld(size_t size, MovementType moveType);
 
-        Point GenerateRandomPoint(GridWorld& world, uint bounds);
+        Point GenerateRandomPoint(GridWorld* world, uint bounds);
 
         private:
         std::random_device seed;

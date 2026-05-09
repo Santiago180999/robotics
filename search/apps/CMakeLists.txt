@@ -1,12 +1,13 @@
 
 add_executable(
     Sandbox 
-    Render.cpp
+    Dfs.cpp
     )
 
 target_link_libraries(
     Sandbox
     GridWorld 
     Solver
+    Visual
     sdl::sdl
 )

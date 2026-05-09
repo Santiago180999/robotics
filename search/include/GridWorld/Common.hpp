@@ -4,18 +4,36 @@
 #include <vector>
 #include <SDL3/SDL.h>
 #include <SDL3/SDL_main.h>
-#include "Visual/IVisual.hpp"
-
-const int SCREEN_WIDTH = 600;
-const int SCREEN_HEIGHT = 600;
-const int GRID_SIZE = 20;
-const float CELL_SIZE = (float)SCREEN_WIDTH / GRID_SIZE;
+#include "Visual/IRenderable.hpp"
 
 namespace Grid
 {
+    class GridWorld;
+    class Path;
+    
     enum CellType { EMPTY, WALL, AGENT, START, GOAL };
 
-    using Grid2D = std::vector<std::vector<CellType>>;
+    class Grid2D
+    {
+        public:
+        Grid2D(int size) : m_size(size), grid(size, std::vector<CellType>(size, EMPTY)) {}
+
+        // 1. Non-const version (allows modification: grid[y][x] = value)
+        std::vector<CellType>& operator[](size_t index) {
+            return grid[index];
+        }
+
+        // 2. Const version (for read-only access: T val = grid[y][x])
+        const std::vector<CellType>& operator[](size_t index) const {
+            return grid[index];
+        }
+
+        size_t size() const { return m_size; }
+
+        private:
+        size_t m_size; // assume square
+        std::vector<std::vector<CellType>> grid;
+    };
 
     struct Point 
     { 

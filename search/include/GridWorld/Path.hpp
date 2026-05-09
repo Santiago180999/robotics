@@ -2,7 +2,7 @@
 #define PATH_HPP
 
 #include "Common.hpp"
-#
+#include "GridWorld.hpp"
 
 namespace Grid
 {
@@ -29,10 +29,14 @@ namespace Grid
         WayPoint(Point source, Point desti, ActionType act, EntryType tipe) : src(source), dest(desti), action(act), type(tipe) {}
     };
 
-    class Path : IVisual
+    class Path : public IRenderable
     {
         public: 
-        Path() = default;
+        Path(GridWorld* world);
+
+        Path(Path& other);
+
+        ~Path();
 
         void addWayPoint(WayPoint point);
 
@@ -40,8 +44,11 @@ namespace Grid
 
         void render(SDL_Renderer* renderer) override;
 
+        void drawArrow(SDL_Renderer* renderer, WayPoint& waypoint);
+
         private:
         std::vector<WayPoint> m_path;
+        GridWorld* p_world;
         // TODO: need to come back to define the ops to do on a path...
 
     };

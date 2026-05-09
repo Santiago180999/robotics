@@ -1,9 +1,10 @@
 #include "GridWorld/GridWorld.hpp"
 #include <SDL3/SDL_rect.h>
+#include <SDL3/SDL_render.h>
 
 namespace Grid
 {
-    GridWorld::GridWorld(Grid2D& grid, MovementType type) : m_gridSize(grid.size()), m_grid(grid)
+    GridWorld::GridWorld(Grid::Grid2D& grid, MovementType type) : m_gridSize(grid.size()), m_grid(grid)
     {
         m_agentPos = {0, 0};
         setActionList(type);
@@ -30,8 +31,8 @@ namespace Grid
         return m_grid;
     }
 
-    void GridWorld::handleInput(const SDL_Event& e) {
-        if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
+    void GridWorld::handleInput(const SDL_Event& e) {}
+/*         if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
             float x, y;
             SDL_GetMouseState(&x, &y);
             int gridX = (int)(x / CELL_SIZE);
@@ -50,10 +51,14 @@ namespace Grid
             if (e.key.key == SDLK_LEFT && m_agentPos.x > 0) m_agentPos.x--;
             if (e.key.key == SDLK_RIGHT && m_agentPos.x < m_gridSize - 1) m_agentPos.x++;
             m_grid[m_agentPos.y][m_agentPos.x] = AGENT;
-        }
-    }
+        } */
+
 
     void GridWorld::render(SDL_Renderer* renderer) {
+        int SCREEN_WIDTH;
+        int SCREEN_HEIGHT;
+        SDL_GetCurrentRenderOutputSize(renderer, &SCREEN_WIDTH, &SCREEN_HEIGHT);
+        float CELL_SIZE = (float)SCREEN_WIDTH / m_gridSize;
         for (int y = 0; y < m_gridSize; ++y) {
             for (int x = 0; x < m_gridSize; ++x) {
                 SDL_FRect rect = { x * CELL_SIZE, y * CELL_SIZE, CELL_SIZE, CELL_SIZE };

@@ -3,20 +3,25 @@
 
 #include "GridWorld/GridWorld.hpp"
 #include "GridWorld/Path.hpp"
+#include <memory>
 
 class DepthFirstSearch
 {
     public:
-    DepthFirstSearch();
+    DepthFirstSearch(Grid::GridWorld* world);
 
-    bool solve(Grid::GridWorld& world, Grid::Point start);
+    ~DepthFirstSearch();
 
-    Grid::Path& getSolution();
+    bool solve(Grid::Point start);
+
+    Grid::Path* getSolution();
 
     void SetFinalPathBetween(Grid::Point startPoint, Grid::Point endPoint);
 
     private:
-    Grid::Path m_path;
+    std::unique_ptr<Grid::Path> m_path;
+    Grid::GridWorld* p_world;
+
 };
 
 #endif  

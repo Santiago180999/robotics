@@ -3,6 +3,7 @@
 
 #include "Common.hpp"
 #include "Path.hpp"
+#include <stdio.h>
 
 namespace Grid
 {
@@ -28,12 +29,14 @@ namespace Grid
         DIAGONAL
     };
 
-    class GridWorld : IVisual
+    class GridWorld : public IRenderable
     {
         public:
 
         // Functions im confident belong here:
         GridWorld(Grid2D& grid, MovementType type);
+
+        ~GridWorld() = default;
 
         const Grid2D& getGrid();
 
@@ -74,7 +77,7 @@ namespace Grid
         Point m_agentPos;
 
         Grid2D m_grid;
-        int m_gridSize;
+        size_t m_gridSize;
         std::vector<ActionType> m_actions;
     };
 }

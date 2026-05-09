@@ -4,10 +4,10 @@ namespace Grid
 {
     GridGenerator::GridGenerator() : seed(), gen(seed()) {}
 
-    GridWorld GridGenerator::GenerateWorld(uint size, MovementType moveType)
+    std::unique_ptr<GridWorld> GridGenerator::GenerateWorld(size_t size, MovementType moveType)
     {
         std::bernoulli_distribution dist(0.35);
-        Grid2D grid(size, std::vector<CellType>(size, EMPTY));
+        Grid2D grid(size);
         // loop over the grid
         for (int i = 0; i < size; i++)
         {
@@ -20,14 +20,14 @@ namespace Grid
             }
         }
 
-        return GridWorld(grid, moveType);
+        return std::make_unique<GridWorld>(grid, moveType);
     }
 
-    Point GridGenerator::GenerateRandomPoint(GridWorld& world, uint bounds)
+    Point GridGenerator::GenerateRandomPoint(GridWorld* world, uint bounds)
     {
         std::uniform_int_distribution<> dist(0, bounds);
         Point x = {-1, -1}; // initially invalid point
-        while (!world.isCellValid(x))
+        while (!world->isCellValid(x))
         {
             x = {dist(gen), dist(gen)};
         } 
