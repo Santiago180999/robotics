@@ -2,6 +2,7 @@
 add_library(
     Solver
     DepthFirstSearch.cpp
+    BreadthFirstSearch.cpp
 )
 
 target_include_directories(

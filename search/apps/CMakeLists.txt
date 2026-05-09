@@ -1,11 +1,24 @@
 
 add_executable(
-    Sandbox 
+    DFS 
     Dfs.cpp
     )
 
+add_executable(
+    BFS 
+    Bfs.cpp
+    )
+
 target_link_libraries(
-    Sandbox
+    DFS
+    GridWorld 
+    Solver
+    Visual
+    sdl::sdl
+)
+
+target_link_libraries(
+    BFS
     GridWorld 
     Solver
     Visual

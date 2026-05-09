@@ -1,14 +1,14 @@
 #include "Visual/SdlEngine.hpp"
 #include "GridWorld/GridWorld.hpp"
 #include "GridWorld/GridGenerator.hpp"
-#include "Solver/DepthFirstSearch.hpp"
+#include "Solver/BreadthFirstSearch.hpp"
 
 const size_t SCREEN_SIZE = 600;
 const int GRID_SIZE = 20;
 
 int main(int argc, char* argv[])
 {
-    SdlEngine display("Depth First Search", SCREEN_SIZE, SCREEN_SIZE);
+    SdlEngine display("Breadth First Search", SCREEN_SIZE, SCREEN_SIZE);
     
     Grid::GridGenerator gen;
 
@@ -16,7 +16,7 @@ int main(int argc, char* argv[])
     
     bool success = false;
 
-    DepthFirstSearch solver(world.get());
+    BreadthFirstSearch solver(world.get());
     Grid::Point st, ed;
     st = gen.GenerateRandomPoint(world.get(), GRID_SIZE);
     ed = gen.GenerateRandomPoint(world.get(), GRID_SIZE);
