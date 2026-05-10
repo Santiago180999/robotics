@@ -1,18 +1,18 @@
 #ifndef BREADTH_FIRST_SEARCH_HPP
 #define BREADTH_FIRST_SEARCH_HPP
 
-#include "GridWorld/GridWorld.hpp"
 #include "GridWorld/Path.hpp"
+#include "Problem/ProblemGenerator.hpp"
 #include <memory>
 
 class BreadthFirstSearch
 {
     public:
-    BreadthFirstSearch(Grid::GridWorld* world);
+    BreadthFirstSearch(ProblemGenerator& problem);
 
     ~BreadthFirstSearch();
 
-    bool solve(Grid::Point start);
+    bool solve();
 
     Grid::Path* getSolution();
 
@@ -20,7 +20,7 @@ class BreadthFirstSearch
 
     private:
     std::unique_ptr<Grid::Path> m_path;
-    Grid::GridWorld* p_world;
+    ProblemGenerator& r_problem;
 
 };
 

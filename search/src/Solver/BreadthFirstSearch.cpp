@@ -3,20 +3,21 @@
 #include <vector>
 #include <stdio.h>
 
-BreadthFirstSearch::BreadthFirstSearch(Grid::GridWorld* world) : p_world(world) 
+BreadthFirstSearch::BreadthFirstSearch(ProblemGenerator& problem) : r_problem(problem) 
 {
-    m_path = std::make_unique<Grid::Path>(world);
+    m_path = std::make_unique<Grid::Path>(r_problem.getWorld());
 }
 
-BreadthFirstSearch::~BreadthFirstSearch()
-{
-    p_world = nullptr;
-}
+BreadthFirstSearch::~BreadthFirstSearch(){}
 
-bool BreadthFirstSearch::solve(Grid::Point start)
+bool BreadthFirstSearch::solve()
 {
     std::vector<Grid::Point> visited;
     std::queue<Grid::Point> q;
+
+    Grid::Point start = r_problem.getStartState();
+
+    Grid::GridWorld* world = r_problem.getWorld();
 
     auto isVisited = [&visited](Grid::Point pt) {
         for (auto& vis : visited)
@@ -30,18 +31,19 @@ bool BreadthFirstSearch::solve(Grid::Point start)
     };
 
     q.push(start);
+
     while(!q.empty())
     {
         Grid::Point x = q.front();
         q.pop();
-        if (p_world->isCellGoal(x)) 
+        if (r_problem.isGoalState(x)) 
         {
             SetFinalPathBetween(start, x);
             return true;
         }
-        for (const auto& act : p_world->getActions())
+        for (const auto& act : world->getActions())
         {
-            Grid::Point xp = p_world->takeAction(act, x); // already checks for validity
+            Grid::Point xp = world->takeAction(act, x); // already checks for validity
             if (!isVisited(xp))
             {
                 visited.push_back(xp);             

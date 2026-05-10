@@ -11,14 +11,17 @@ add_executable(
 
 target_link_libraries(
     DFS
+    Problem
     GridWorld 
     Solver
     Visual
     sdl::sdl
 )
 
+# at some point come back to see what libs can not be linked here
 target_link_libraries(
     BFS
+    Problem
     GridWorld 
     Solver
     Visual

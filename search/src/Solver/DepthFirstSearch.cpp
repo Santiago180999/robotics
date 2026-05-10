@@ -3,20 +3,21 @@
 #include <vector>
 #include <stdio.h>
 
-DepthFirstSearch::DepthFirstSearch(Grid::GridWorld* world) : p_world(world) 
+DepthFirstSearch::DepthFirstSearch(ProblemGenerator& problem) : r_problem(problem) 
 {
-    m_path = std::make_unique<Grid::Path>(world);
+    m_path = std::make_unique<Grid::Path>(r_problem.getWorld());
 }
 
-DepthFirstSearch::~DepthFirstSearch()
-{
-    p_world = nullptr;
-}
+DepthFirstSearch::~DepthFirstSearch(){}
 
-bool DepthFirstSearch::solve(Grid::Point start)
+bool DepthFirstSearch::solve()
 {
     std::vector<Grid::Point> visited;
     std::stack<Grid::Point> q;
+
+    Grid::Point start = r_problem.getStartState();
+
+    Grid::GridWorld* world = r_problem.getWorld();
 
     auto isVisited = [&visited](Grid::Point pt) {
         for (auto& vis : visited)
@@ -34,14 +35,14 @@ bool DepthFirstSearch::solve(Grid::Point start)
     {
         Grid::Point x = q.top();
         q.pop();
-        if (p_world->isCellGoal(x)) 
+        if (r_problem.isGoalState(x)) 
         {
             SetFinalPathBetween(start, x);
             return true;
         }
-        for (const auto& act : p_world->getActions())
+        for (const auto& act : world->getActions())
         {
-            Grid::Point xp = p_world->takeAction(act, x); // already checks for validity
+            Grid::Point xp = world->takeAction(act, x); // already checks for validity
             if (!isVisited(xp))
             {
                 visited.push_back(xp);             

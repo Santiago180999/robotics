@@ -2,7 +2,7 @@
 
 namespace Grid
 {
-    GridGenerator::GridGenerator() : seed(), gen(seed()) {}
+    GridGenerator::GridGenerator() : seed(), gen(seed()) {bounds = 100;}
 
     std::unique_ptr<GridWorld> GridGenerator::GenerateWorld(size_t size, MovementType moveType)
     {
@@ -23,7 +23,7 @@ namespace Grid
         return std::make_unique<GridWorld>(grid, moveType);
     }
 
-    Point GridGenerator::GenerateRandomPoint(GridWorld* world, uint bounds)
+    Point GridGenerator::GenerateRandomPoint(GridWorld* world)
     {
         std::uniform_int_distribution<> dist(0, bounds);
         Point x = {-1, -1}; // initially invalid point

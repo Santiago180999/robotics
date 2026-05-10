@@ -14,11 +14,12 @@ namespace Grid
 
         std::unique_ptr<GridWorld> GenerateWorld(size_t size, MovementType moveType);
 
-        Point GenerateRandomPoint(GridWorld* world, uint bounds);
+        Point GenerateRandomPoint(GridWorld* world);
 
         private:
         std::random_device seed;
         std::mt19937 gen;
+        uint bounds;
     };
 }
 

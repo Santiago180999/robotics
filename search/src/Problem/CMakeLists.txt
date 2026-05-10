@@ -1,18 +1,16 @@
 # Create the library
 add_library(
-    Solver
-    DepthFirstSearch.cpp
-    BreadthFirstSearch.cpp
+    Problem
+    ProblemGenerator.cpp
 )
 
 target_include_directories(
-    Solver
+    Problem
     PUBLIC
     ${CMAKE_SOURCE_DIR}/include
 )
 
 target_link_libraries(
-    Solver 
+    Problem 
     GridWorld
-    Problem
 )

@@ -1,18 +1,18 @@
 #ifndef DEPTH_FIRST_SEARCH_HPP
 #define DEPTH_FIRST_SEARCH_HPP
 
-#include "GridWorld/GridWorld.hpp"
+#include "Problem/ProblemGenerator.hpp"
 #include "GridWorld/Path.hpp"
 #include <memory>
 
 class DepthFirstSearch
 {
     public:
-    DepthFirstSearch(Grid::GridWorld* world);
+    DepthFirstSearch(ProblemGenerator& problem);
 
     ~DepthFirstSearch();
 
-    bool solve(Grid::Point start);
+    bool solve();
 
     Grid::Path* getSolution();
 
@@ -20,7 +20,7 @@ class DepthFirstSearch
 
     private:
     std::unique_ptr<Grid::Path> m_path;
-    Grid::GridWorld* p_world;
+    ProblemGenerator& r_problem;
 
 };
 

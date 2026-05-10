@@ -22,6 +22,8 @@ namespace Grid
 
     void Path::drawArrow(SDL_Renderer* renderer, WayPoint& waypoint)
     {
+        // TODO: make the arrow drawing based on angles, so that the moves work for the diagonal
+
         int width;
         int height;
         SDL_GetCurrentRenderOutputSize(renderer, &width, &height);
@@ -135,6 +137,12 @@ namespace Grid
 
     void Path::render(SDL_Renderer* renderer)
     {
+        // sort the path according to waypoint type so that the final path shows above the others
+        std::sort(m_path.begin(), m_path.end(), 
+            [](const WayPoint &a, const WayPoint &b){
+                return a.type > b.type;
+            }); // this could be non-performant if called at every render iteration...
+
         for (auto& wp : m_path)
         {
             drawArrow(renderer, wp);
