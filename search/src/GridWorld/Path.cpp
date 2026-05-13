@@ -55,11 +55,15 @@ namespace Grid
     void Path::render(SDL_Renderer* renderer)
     {
         // sort the path according to waypoint type so that the final path shows above the others
-        std::sort(m_path.begin(), m_path.end(), 
+        if (!isSorted)
+        {
+            std::sort(m_path.begin(), m_path.end(), 
             [](const WayPoint &a, const WayPoint &b){
                 return a.type > b.type;
-            }); // this could be non-performant if called at every render iteration...
-
+            }); 
+            isSorted = true;
+        }
+        
         for (auto& wp : m_path)
         {
             drawArrow(renderer, wp);
@@ -79,6 +83,16 @@ namespace Grid
         auto it = std::find_if(m_path.begin(), m_path.end(), cond);
 
         return *it;
+    }
+
+    void Path::setSolutionStatus(bool isSolution)
+    {
+        m_isSolution = isSolution;
+    }
+
+    bool Path::isSolutionStatus() 
+    {
+        return m_isSolution;
     }
 
 }

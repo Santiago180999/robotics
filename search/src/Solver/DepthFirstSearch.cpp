@@ -38,6 +38,7 @@ bool DepthFirstSearch::solve()
         if (r_problem.isGoalState(x)) 
         {
             SetFinalPathBetween(start, x);
+            m_path->setSolutionStatus(true);
             return true;
         }
         for (const auto& act : world->getActions())
@@ -51,6 +52,7 @@ bool DepthFirstSearch::solve()
             }
         }
     }
+    m_path->setSolutionStatus(false);
     return false;
 
 }
