@@ -4,6 +4,8 @@ add_library(
     GridWorld.cpp
     GridGenerator.cpp
     Path.cpp
+    ColoredPath.cpp
+    PathArrow.cpp
 )
 
 target_include_directories(

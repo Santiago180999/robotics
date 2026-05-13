@@ -10,6 +10,24 @@ namespace Grid
 {
     class GridWorld;
     class Path;
+
+    enum EntryType 
+    {
+        FINAL, 
+        EXPLORE
+    };
+
+    namespace PathColor
+    {
+        const SDL_FColor DEFAULT = {1, 1, 1, 1};
+        const SDL_FColor EXPLORE = {0.95, 0.89, 0.57, 1.0};
+        const SDL_FColor FINAL = {0.2, 0.2, 0.9, 1.0};
+        const SDL_FColor GREEN = {0.212, 0.859, 0.027, 1.0};
+        const SDL_FColor BLUE = {0.129, 0.157, 0.929};
+        const SDL_FColor RED = {0.949, 0.169, 0.067};
+        const SDL_FColor PINK = {0.949, 0.067, 0.945};
+        const SDL_FColor PURPLE = {0.675, 0.067, 0.949};
+    }
     
     enum CellType { EMPTY, WALL, AGENT, START, GOAL };
 
@@ -56,6 +74,23 @@ namespace Grid
         NORTHWEST,
         SOUTHEAST,
         SOUTHWEST
+    };
+
+    struct WayPoint
+    {
+        Point src, dest;
+        ActionType action; 
+        EntryType type;
+
+        WayPoint() 
+        {
+            src = {0,0}; 
+            dest = {0,0};
+            action = INPLACE;
+            type = FINAL;
+        }
+
+        WayPoint(Point source, Point desti, ActionType act, EntryType tipe) : src(source), dest(desti), action(act), type(tipe) {}
     };
 }
 
