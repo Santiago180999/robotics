@@ -26,10 +26,20 @@ namespace Grid
 
         virtual void drawArrow(SDL_Renderer* renderer, WayPoint& waypoint);
 
+        void setSolutionStatus(bool isSolution);
+
+        bool isSolutionStatus();
+
+
+
         protected:
         std::vector<WayPoint> m_path;
         GridWorld* p_world;
-        
+        bool m_isSolution = false;
+
+        // convenience variable
+        bool isSorted = false;
+
     };
 }
 

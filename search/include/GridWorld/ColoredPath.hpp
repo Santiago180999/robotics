@@ -4,7 +4,7 @@
 #include "GridWorld/Path.hpp"
 #include "GridWorld/PathArrow.hpp"
 
-// TODO: redefine this class as a decorator of the path. 
+// TODO: redefine this class as a decorator of the path, or a strategy
 namespace Grid
 {
     class ColoredPath : public Path
