@@ -4,8 +4,8 @@ add_library(
     World.cpp
     Generator.cpp
     Path.cpp
-    ColoredPath.cpp
     PathArrow.cpp
+    PathRenderStrategy.cpp
 )
 
 target_include_directories(

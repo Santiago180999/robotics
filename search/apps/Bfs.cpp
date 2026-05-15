@@ -2,6 +2,8 @@
 #include "Solver/PathFinder.hpp"
 #include "Solver/BreadthFirstSearch.hpp"
 #include "Problem/ProblemGenerator.hpp"
+#include "Visual/PathRenderer.hpp"
+#include "GridWorld/PathRenderStrategy.hpp"
 
 const size_t SCREEN_SIZE = 600;
 const int GRID_SIZE = 20;
@@ -10,8 +12,9 @@ int main(int argc, char* argv[])
 {
     Grid::ProblemGenerator gen;
     Grid::PathFinder planner;
+    PathRenderer rend;
     std::unique_ptr<Grid::Problem> problem;
-    SdlEngine display("Breadth First Search", SCREEN_SIZE, SCREEN_SIZE);
+    
     if (argc < 2)
     {
         Grid::ProblemParameters params(GRID_SIZE, Grid::MovementType::ORTHOGONAL);
@@ -37,9 +40,17 @@ int main(int argc, char* argv[])
     planner.setSolver(&solver);
     planner.solve();
 
+    Grid::DrawPath fin(Grid::PathColor::GREEN);
+    Grid::ShowExplorationDecorator dec(Grid::PathColor::EXPLORE, &fin);
+
+    Grid::Path sol = planner.getSolution();
+    rend.setPath(&sol);
+    rend.setStrategy(&dec);
+
+    SdlEngine display("Breadth First Search", SCREEN_SIZE, SCREEN_SIZE);
     display.addRenderable(problem->getWorld());
     display.addRenderable(problem.get());
-    display.addRenderable(planner.getSolution());
+    display.addRenderable(&rend);
     display.run(); 
 
     return 0;

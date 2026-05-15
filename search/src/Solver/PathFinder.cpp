@@ -18,9 +18,9 @@ namespace Grid
         return this->m_solver->solve();
     }
 
-    Path* PathFinder::getSolution()
+    Path PathFinder::getSolution()
     {
-        return this->m_solver->getSolution();
+        return *(this->m_solver->getSolution());
     }
 
 

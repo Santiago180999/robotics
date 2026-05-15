@@ -14,19 +14,6 @@ target_link_libraries(
 )
 
 add_executable(
-    DFSCopy
-    DfsCopy.cpp
-)
-
-target_link_libraries(
-    DFSCopy
-    Problem
-    World 
-    Solver
-    Visual
-    sdl::sdl
-)
-add_executable(
     BFS 
     Bfs.cpp
     )

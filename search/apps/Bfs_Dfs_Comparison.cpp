@@ -3,7 +3,8 @@
 #include "Solver/DepthFirstSearch.hpp"
 #include "Solver/PathFinder.hpp"
 #include "Problem/ProblemGenerator.hpp"
-#include "GridWorld/ColoredPath.hpp"
+#include "Visual/PathRenderer.hpp"
+#include "GridWorld/PathRenderStrategy.hpp"
 
 const size_t SCREEN_SIZE = 600;
 const int GRID_SIZE = 20;
@@ -12,38 +13,43 @@ int main(int argc, char* argv[])
 {
     // TODO: add a way for the user to set the start and goal states, and have the algorithm re-generate a solution
     // TODO: think how the stuff learnt implementing this can be re-used for the GCS. 
-    SdlEngine display("Comparison Of DFS and BFS", SCREEN_SIZE, SCREEN_SIZE);
     
-    // TODO: would be cool to get a repeatable world. i think should be possible knowing the seed
     Grid::ProblemParameters params(GRID_SIZE, Grid::MovementType::ORTHOGONAL);
     Grid::ProblemGenerator gen;
-
+    Grid::PathFinder planner;
     std::unique_ptr<Grid::Problem> problem = gen.generateRandomProblem(params);
 
     printf("Seed is: %u\n", gen.getSeed());
 
-    Grid::PathFinder planner;
     planner.setProblem(problem.get());
-
-    display.addRenderable(problem->getWorld());
-    display.addRenderable(problem.get());
 
     Grid::BreadthFirstSearch BFS;
     Grid::DepthFirstSearch DFS;
 
     planner.setSolver(&BFS);
     planner.solve();
-
-    // A legend would be nice to add
-    Grid::ColoredPath BFS_soln = Grid::ColoredPath::ColorPathWith(*BFS.getSolution(), Grid::PathColor::GREEN);
+    Grid::Path BFS_soln = planner.getSolution();
 
     planner.setSolver(&DFS);
     planner.solve();
+    Grid::Path DFS_soln = planner.getSolution();
 
-    Grid::ColoredPath DFS_soln = Grid::ColoredPath::ColorPathWith(*DFS.getSolution(), Grid::PathColor::BLUE);
+    // A legend would be nice to add
+    Grid::DrawPath BFS_strat(Grid::PathColor::GREEN);
+    Grid::DrawPath DFS_strat(Grid::PathColor::BLUE);
 
-    display.addRenderable(&BFS_soln);
-    display.addRenderable(&DFS_soln);
+    PathRenderer BFS_rend;
+    BFS_rend.setPath(&BFS_soln);
+    BFS_rend.setStrategy(&BFS_strat);
+    PathRenderer DFS_rend;
+    DFS_rend.setPath(&DFS_soln);
+    DFS_rend.setStrategy(&DFS_strat);
+
+    SdlEngine display("Comparison Of DFS and BFS", SCREEN_SIZE, SCREEN_SIZE);
+    display.addRenderable(problem->getWorld());
+    display.addRenderable(problem.get());
+    display.addRenderable(&BFS_rend);
+    display.addRenderable(&DFS_rend);
 
 
     display.run();

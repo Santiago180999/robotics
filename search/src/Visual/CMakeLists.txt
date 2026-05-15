@@ -3,6 +3,7 @@ add_library(
     Visual
     RenderManager.cpp
     SdlEngine.cpp
+    PathRenderer.cpp
 )
 
 target_include_directories(

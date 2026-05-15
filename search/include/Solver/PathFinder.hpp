@@ -1,4 +1,4 @@
-// this is the strategy context
+// strategy implementation of the search algorithms
 
 #ifndef PATHFINDER_HPP
 #define PATHFINDER_HPP
@@ -19,7 +19,7 @@ namespace Grid
 
         bool solve();
 
-        Path* getSolution();
+        Path getSolution();
 
         private:
         ISolver* m_solver = nullptr;
