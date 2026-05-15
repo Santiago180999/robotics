@@ -1,16 +1,16 @@
-#include "GridWorld/GridWorld.hpp"
+#include "GridWorld/World.hpp"
 #include <SDL3/SDL_rect.h>
 #include <SDL3/SDL_render.h>
 
 namespace Grid
 {
-    GridWorld::GridWorld(Grid::Grid2D& grid, MovementType type) : m_gridSize(grid.size()), m_grid(grid)
+    World::World(Grid::Grid2D& grid, MovementType type) : m_gridSize(grid.size()), m_grid(grid)
     {
         m_agentPos = {0, 0};
         setActionList(type);
     }
 
-    void GridWorld::setActionList(MovementType type)
+    void World::setActionList(MovementType type)
     {
         switch (type)
         {
@@ -26,12 +26,12 @@ namespace Grid
         }
     }
 
-    const Grid2D& GridWorld::getGrid()
+    const Grid2D& World::getGrid()
     {
         return m_grid;
     }
 
-    void GridWorld::handleInput(const SDL_Event& e) {}
+    void World::handleInput(const SDL_Event& e) {}
 /*         if (e.type == SDL_EVENT_MOUSE_BUTTON_DOWN) {
             float x, y;
             SDL_GetMouseState(&x, &y);
@@ -54,7 +54,7 @@ namespace Grid
         } */
 
 
-    void GridWorld::render(SDL_Renderer* renderer) {
+    void World::render(SDL_Renderer* renderer) {
         int SCREEN_WIDTH;
         int SCREEN_HEIGHT;
         SDL_GetCurrentRenderOutputSize(renderer, &SCREEN_WIDTH, &SCREEN_HEIGHT);
@@ -81,18 +81,18 @@ namespace Grid
         }
     }
 
-    const std::vector<ActionType>& GridWorld::getActions()
+    const std::vector<ActionType>& World::getActions()
     {
         return m_actions;
     }
 
 
-    void GridWorld::setCellType(Point loc, CellType type)
+    void World::setCellType(Point loc, CellType type)
     {
         m_grid[loc.y][loc.x] = type;
     }
 
-    bool GridWorld::setStartCell(Point loc)
+    bool World::setStartCell(Point loc)
     {
         if (isCellValid(loc))
         {
@@ -106,7 +106,7 @@ namespace Grid
 
     }
     
-    bool GridWorld::setGoalCell(Point loc)
+    bool World::setGoalCell(Point loc)
     {
         if (isCellValid(loc) && m_grid[loc.y][loc.x] != CellType::START)
         {
@@ -119,7 +119,7 @@ namespace Grid
         }
     }
 
-    Point GridWorld::takeAction(ActionType action, Point loc)
+    Point World::takeAction(ActionType action, Point loc)
     {
         if (!isCellValid(loc) || !isValidAction(action))
         {
@@ -176,7 +176,7 @@ namespace Grid
         else return loc;
     }
 
-    bool GridWorld::isValidAction(ActionType action)
+    bool World::isValidAction(ActionType action)
     {
         for (auto& x : m_actions)
         {
@@ -188,7 +188,7 @@ namespace Grid
         return false;
     }
 
-    bool GridWorld::isCellValid(Point loc)
+    bool World::isCellValid(Point loc)
     {
         if (isCellInbounds(loc))
         {
@@ -207,7 +207,7 @@ namespace Grid
         }
     }
 
-    bool GridWorld::isCellInbounds(Point loc)
+    bool World::isCellInbounds(Point loc)
     {
         if (loc.x >= 0 && loc.x < m_gridSize && loc.y >= 0 && loc.y < m_gridSize)
         {
@@ -216,7 +216,7 @@ namespace Grid
         else return false;
     }
 
-    bool GridWorld::isCellEmpty(Point loc)
+    bool World::isCellEmpty(Point loc)
     {
         if (m_grid[loc.y][loc.x] == WALL)
         {
@@ -228,7 +228,7 @@ namespace Grid
         }
     }
 
-    bool GridWorld::isCellGoal(Point loc)
+    bool World::isCellGoal(Point loc)
     {
         if (m_grid[loc.y][loc.x] == GOAL)
         {

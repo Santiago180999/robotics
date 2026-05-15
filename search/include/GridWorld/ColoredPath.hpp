@@ -11,7 +11,7 @@ namespace Grid
     {
         public:
 
-        ColoredPath(GridWorld* world, SDL_FColor color);
+        ColoredPath(World* world, SDL_FColor color);
 
         ColoredPath(ColoredPath& other);
 

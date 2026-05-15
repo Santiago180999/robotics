@@ -5,7 +5,7 @@
 namespace Grid
 {
 
-    Path::Path(Grid::GridWorld* world) : p_world(world) {}
+    Path::Path(Grid::World* world) : p_world(world) {}
 
     Path::Path(const Path& other)
     {

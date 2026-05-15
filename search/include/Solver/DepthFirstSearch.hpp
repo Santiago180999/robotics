@@ -3,25 +3,31 @@
 
 #include "Problem/ProblemGenerator.hpp"
 #include "GridWorld/Path.hpp"
+#include "ISolver.hpp"
 #include <memory>
 
-class DepthFirstSearch
+namespace Grid
+{
+class DepthFirstSearch : public ISolver 
 {
     public:
-    DepthFirstSearch(ProblemGenerator& problem);
+    DepthFirstSearch();
 
     ~DepthFirstSearch();
 
-    bool solve();
+    void setProblem(Problem* problem) override;
 
-    Grid::Path* getSolution();
+    bool solve() override;
+
+    Grid::Path* getSolution() override;
 
     void SetFinalPathBetween(Grid::Point startPoint, Grid::Point endPoint);
 
     private:
     std::unique_ptr<Grid::Path> m_path;
-    ProblemGenerator& r_problem;
+    Problem* m_problem;
 
 };
+}
 
 #endif  

@@ -2,7 +2,7 @@
 
 namespace Grid
 {
-    ColoredPath::ColoredPath(GridWorld* world, SDL_FColor color) : Path(world)
+    ColoredPath::ColoredPath(World* world, SDL_FColor color) : Path(world)
     {
         setColor(color);
     }

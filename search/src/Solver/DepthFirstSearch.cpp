@@ -3,21 +3,26 @@
 #include <vector>
 #include <stdio.h>
 
-DepthFirstSearch::DepthFirstSearch(ProblemGenerator& problem) : r_problem(problem) 
+namespace Grid
 {
-    m_path = std::make_unique<Grid::Path>(r_problem.getWorld());
-}
+DepthFirstSearch::DepthFirstSearch(){}
 
 DepthFirstSearch::~DepthFirstSearch(){}
+
+void DepthFirstSearch::setProblem(Problem* problem)
+{
+    m_problem = problem;
+    m_path = std::make_unique<Grid::Path>(m_problem->getWorld());
+}
 
 bool DepthFirstSearch::solve()
 {
     std::vector<Grid::Point> visited;
     std::stack<Grid::Point> q;
 
-    Grid::Point start = r_problem.getStartState();
+    Grid::Point start = m_problem->getStartState();
 
-    Grid::GridWorld* world = r_problem.getWorld();
+    Grid::World* world = m_problem->getWorld();
 
     auto isVisited = [&visited](Grid::Point pt) {
         for (auto& vis : visited)
@@ -35,7 +40,7 @@ bool DepthFirstSearch::solve()
     {
         Grid::Point x = q.top();
         q.pop();
-        if (r_problem.isGoalState(x)) 
+        if (m_problem->isGoalState(x)) 
         {
             SetFinalPathBetween(start, x);
             m_path->setSolutionStatus(true);
@@ -69,4 +74,6 @@ void DepthFirstSearch::SetFinalPathBetween(Grid::Point startPoint, Grid::Point e
 Grid::Path* DepthFirstSearch::getSolution() 
 {
     return m_path.get();
+}
+
 }

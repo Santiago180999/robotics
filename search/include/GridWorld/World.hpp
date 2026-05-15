@@ -29,14 +29,14 @@ namespace Grid
         DIAGONAL
     };
 
-    class GridWorld : public IRenderable
+    class World : public IRenderable
     {
         public:
-
+        World() = default;
         // Functions im confident belong here:
-        GridWorld(Grid2D& grid, MovementType type);
+        World(Grid2D& grid, MovementType type);
 
-        ~GridWorld() = default;
+        ~World() = default;
 
         const Grid2D& getGrid();
 

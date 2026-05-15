@@ -14,7 +14,7 @@ namespace Grid
         ArrowHeight = std::sqrt(xdiff*xdiff + ydiff*ydiff);
         ArrowAngle = std::atan2(ydiff,xdiff);
         BaseHeight = 2*ArrowHeight/3;
-        ArrowWidth = ArrowHeight/2; 
+        ArrowWidth = ArrowHeight/1.5; 
         BaseWidth = ArrowWidth/3;
         
         // pi over two because arrow is aligned with the arrow y axis

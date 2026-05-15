@@ -3,25 +3,31 @@
 
 #include "GridWorld/Path.hpp"
 #include "Problem/ProblemGenerator.hpp"
+#include "ISolver.hpp"
 #include <memory>
 
-class BreadthFirstSearch
+// TODO UPDATE FOR NEW STRATEGY PARADIGM
+namespace Grid
+{
+class BreadthFirstSearch : public ISolver
 {
     public:
-    BreadthFirstSearch(ProblemGenerator& problem);
+    BreadthFirstSearch();
 
     ~BreadthFirstSearch();
 
-    bool solve();
+    void setProblem(Problem* problem) override;
 
-    Grid::Path* getSolution();
+    bool solve() override;
+
+    Grid::Path* getSolution() override;
 
     void SetFinalPathBetween(Grid::Point startPoint, Grid::Point endPoint);
 
     private:
     std::unique_ptr<Grid::Path> m_path;
-    ProblemGenerator& r_problem;
-
+    Problem* m_problem;
 };
+}
 
 #endif  

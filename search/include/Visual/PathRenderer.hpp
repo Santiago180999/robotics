@@ -1,0 +1,1 @@
+// id like to implement the path renderer as a strategy, where there are different strategies to render the path on the grid. 

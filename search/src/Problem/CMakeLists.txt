@@ -2,6 +2,7 @@
 add_library(
     Problem
     ProblemGenerator.cpp
+    Problem.cpp
 )
 
 target_include_directories(
@@ -11,6 +12,7 @@ target_include_directories(
 )
 
 target_link_libraries(
-    Problem 
-    GridWorld
+    Problem
+    sdl::sdl  
+    World
 )

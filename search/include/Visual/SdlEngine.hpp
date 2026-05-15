@@ -31,8 +31,8 @@ class SdlEngine
 
     private:
     SDLLibrary sdlLib;
-    std::unique_ptr<SDL_Window, SDLWindowDeleter> window = nullptr;
-    std::unique_ptr<SDL_Renderer, SDLRendererDeleter> renderer = nullptr;
+    std::unique_ptr<SDL_Window, SDLWindowDeleter> window;
+    std::unique_ptr<SDL_Renderer, SDLRendererDeleter> renderer;
     std::unique_ptr<RenderManager> renderManager;
 
     bool running = false;

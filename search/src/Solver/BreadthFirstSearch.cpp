@@ -3,21 +3,26 @@
 #include <vector>
 #include <stdio.h>
 
-BreadthFirstSearch::BreadthFirstSearch(ProblemGenerator& problem) : r_problem(problem) 
+namespace Grid
 {
-    m_path = std::make_unique<Grid::Path>(r_problem.getWorld());
-}
+BreadthFirstSearch::BreadthFirstSearch(){}
 
 BreadthFirstSearch::~BreadthFirstSearch(){}
+
+void BreadthFirstSearch::setProblem(Problem* problem)
+{
+    m_problem = problem;
+    m_path = std::make_unique<Grid::Path>(m_problem->getWorld());
+}
 
 bool BreadthFirstSearch::solve()
 {
     std::vector<Grid::Point> visited;
     std::queue<Grid::Point> q;
 
-    Grid::Point start = r_problem.getStartState();
+    Grid::Point start = m_problem->getStartState();
 
-    Grid::GridWorld* world = r_problem.getWorld();
+    Grid::World* world = m_problem->getWorld();
 
     auto isVisited = [&visited](Grid::Point pt) {
         for (auto& vis : visited)
@@ -36,9 +41,10 @@ bool BreadthFirstSearch::solve()
     {
         Grid::Point x = q.front();
         q.pop();
-        if (r_problem.isGoalState(x)) 
+        if (m_problem->isGoalState(x)) 
         {
             SetFinalPathBetween(start, x);
+            m_path->setSolutionStatus(true);
             return true;
         }
         for (const auto& act : world->getActions())
@@ -52,6 +58,7 @@ bool BreadthFirstSearch::solve()
             }
         }
     }
+    m_path->setSolutionStatus(false);
     return false;
 
 }
@@ -68,4 +75,5 @@ void BreadthFirstSearch::SetFinalPathBetween(Grid::Point startPoint, Grid::Point
 Grid::Path* BreadthFirstSearch::getSolution() 
 {
     return m_path.get();
+}
 }

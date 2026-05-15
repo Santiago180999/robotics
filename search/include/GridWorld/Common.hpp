@@ -8,7 +8,7 @@
 
 namespace Grid
 {
-    class GridWorld;
+    class World;
     class Path;
 
     enum EntryType 

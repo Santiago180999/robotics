@@ -1,20 +1,20 @@
 # Create the library
 add_library(
-    GridWorld 
-    GridWorld.cpp
-    GridGenerator.cpp
+    World 
+    World.cpp
+    Generator.cpp
     Path.cpp
     ColoredPath.cpp
     PathArrow.cpp
 )
 
 target_include_directories(
-    GridWorld
+    World
     PUBLIC
     ${CMAKE_SOURCE_DIR}/include
 )
 
 target_link_libraries(
-    GridWorld 
+    World 
     sdl::sdl 
 )

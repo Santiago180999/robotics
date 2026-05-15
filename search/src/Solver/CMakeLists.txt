@@ -3,6 +3,7 @@ add_library(
     Solver
     DepthFirstSearch.cpp
     BreadthFirstSearch.cpp
+    PathFinder.cpp
 )
 
 target_include_directories(
@@ -13,6 +14,6 @@ target_include_directories(
 
 target_link_libraries(
     Solver 
-    GridWorld
+    World
     Problem
 )
