@@ -1,1 +1,24 @@
-In this repo I want to implement a kinematics library based on the textbook "A Mathematical Introduction to Robotic Manipulation" using C++. Possibly also include the work done for the SAPIENT Study stuff :)
+okay so this became a repo for exploring path planning algorithms in a grid world. 
+as of 260518 this is what i want to do, sort of an issue tracker:
+- Problem class should be more generic, generalizing cost and heuristic. need to think some more about it
+    - make them strategy design pattern
+- The point defined in each algorithm should be the same. 
+- Add a legend element to the grid
+- Give user ability to set start and end goals
+    - if a key is clicked, show coordinates of grid squares
+    - right click sets the start, left click sets the goal
+        - or move cursor and x and g keys set start and goal states
+- upon chanign the problem, run the algorithm again
+- maybe an infinite world
+    - how would you render an infinite world?
+    - add depth limit...
+- more kinds of grid world! 
+    - with values on squares
+    - maybe other kinds of generators
+- add a metric tracker for the algorithm (theres gotta be an object oriented pattern for this)
+    - number of states explored
+    - wall time 
+- add a visual of the search process
+    - i.e. the algorithms run in sync. this means a formulation like the capsulizer project is needed.
+- add more colors, and make them easier to choose
+    - when showing the exploration, make it a lighter shade of the color assigned to the final path
