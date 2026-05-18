@@ -1,6 +1,6 @@
 #include "Visual/SdlEngine.hpp"
 #include "Solver/PathFinder.hpp"
-#include "Solver/DepthFirstSearch.hpp"
+#include "Solver/AstarSearch.hpp"
 #include "Problem/ProblemGenerator.hpp"
 #include "Visual/PathRenderer.hpp"
 #include "GridWorld/PathRenderStrategy.hpp"
@@ -16,7 +16,7 @@ Grid::ProblemGenerator gen;
     std::unique_ptr<Grid::Problem> problem;
     if (argc < 2)
     {
-        Grid::ProblemParameters params(GRID_SIZE, Grid::MovementType::DIAGONAL);
+        Grid::ProblemParameters params(GRID_SIZE, Grid::MovementType::ORTHOGONAL);
     
         
         problem = gen.generateRandomProblem(params);
@@ -34,7 +34,7 @@ Grid::ProblemGenerator gen;
         planner.setProblem(problem.get());
     }
 
-    Grid::DepthFirstSearch solver;
+    Grid::AstarSearch solver;
 
     planner.setSolver(&solver);
     planner.solve();
@@ -46,10 +46,10 @@ Grid::ProblemGenerator gen;
     rend.setPath(&sol);
     rend.setStrategy(&dec);
 
-    SdlEngine display("Depth First Search", SCREEN_SIZE, SCREEN_SIZE);
+    SdlEngine display("Astar's Search", SCREEN_SIZE, SCREEN_SIZE);
     display.addRenderable(problem->getWorld());
     display.addRenderable(problem.get());
-    display.addRenderable(&rend); // how can i superimpose various paths?
+    display.addRenderable(&rend);
     display.run(); 
 
     return 0;

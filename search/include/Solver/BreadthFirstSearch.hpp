@@ -6,7 +6,6 @@
 #include "ISolver.hpp"
 #include <memory>
 
-// TODO UPDATE FOR NEW STRATEGY PARADIGM
 namespace Grid
 {
 class BreadthFirstSearch : public ISolver

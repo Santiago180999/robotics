@@ -4,6 +4,8 @@ add_library(
     DepthFirstSearch.cpp
     BreadthFirstSearch.cpp
     PathFinder.cpp
+    DijkstrasSearch.cpp
+    AstarSearch.cpp
 )
 
 target_include_directories(

@@ -43,6 +43,19 @@ bool Problem::isGoalState(Grid::Point state)
     else return false;
 }
 
+int Problem::getCost(Grid::Point state, ActionType action)
+{
+    // fill in with arbitrary cost function
+    return 1;
+}
+
+int Problem::getHeuristic(Grid::Point state)
+{
+    // using L1 norm
+    return std::abs(m_goal.x - state.x) + std::abs(m_goal.y - state.y); // |x'-x| + |y'-y|
+}
+
+
 void Problem::render(SDL_Renderer* renderer)
 {
     int width;

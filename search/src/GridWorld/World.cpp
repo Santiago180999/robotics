@@ -65,9 +65,6 @@ namespace Grid
                 
                 if (m_grid[y][x] == WALL) SDL_SetRenderDrawColor(renderer, 40, 44, 52, 255);
                 else if (m_grid[y][x] == AGENT) SDL_SetRenderDrawColor(renderer, 97, 175, 239, 255);
-                else if (m_grid[y][x] == START) SDL_SetRenderDrawColor(renderer, 45, 245, 39, 255);
-
-                else if (m_grid[y][x] == GOAL) SDL_SetRenderDrawColor(renderer, 245, 39, 39, 255);
 
                 else SDL_SetRenderDrawColor(renderer, 240, 240, 240, 255);
 
@@ -90,33 +87,6 @@ namespace Grid
     void World::setCellType(Point loc, CellType type)
     {
         m_grid[loc.y][loc.x] = type;
-    }
-
-    bool World::setStartCell(Point loc)
-    {
-        if (isCellValid(loc))
-        {
-            setCellType(loc, CellType::START);
-            return true;
-        }
-        else 
-        {
-            return false;
-        }
-
-    }
-    
-    bool World::setGoalCell(Point loc)
-    {
-        if (isCellValid(loc) && m_grid[loc.y][loc.x] != CellType::START)
-        {
-            setCellType(loc, CellType::GOAL);
-            return true;
-        }
-        else 
-        {
-            return false;
-        }
     }
 
     Point World::takeAction(ActionType action, Point loc)
@@ -226,17 +196,5 @@ namespace Grid
         {
             return true;
         }
-    }
-
-    bool World::isCellGoal(Point loc)
-    {
-        if (m_grid[loc.y][loc.x] == GOAL)
-        {
-            return true;
-        }
-        else
-        {
-            return false;
-        } 
     }
 }

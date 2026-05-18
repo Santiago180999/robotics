@@ -28,8 +28,11 @@ class Problem : public IRenderable
 
     void setGoalState(Grid::Point state);
 
-    // isGoalState fn
     bool isGoalState(Grid::Point state);
+
+    int getCost(Grid::Point state, ActionType action); // cost function could be a strategy pattern
+
+    int getHeuristic(Grid::Point state); // cost to go to goal, could be a strategy for other heuristics
 
     void render(SDL_Renderer* renderer) override;
 

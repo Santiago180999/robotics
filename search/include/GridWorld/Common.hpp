@@ -29,9 +29,9 @@ namespace Grid
         const SDL_FColor PURPLE = {0.675, 0.067, 0.949};
     }
     
-    enum CellType { EMPTY, WALL, AGENT, START, GOAL };
+    enum CellType { EMPTY, WALL, AGENT };
 
-    class Grid2D
+    class Grid2D // could redefine this later to add a different value to each cell to calculate the cost to move
     {
         public:
         Grid2D(int size) : m_size(size), grid(size, std::vector<CellType>(size, EMPTY)) {}

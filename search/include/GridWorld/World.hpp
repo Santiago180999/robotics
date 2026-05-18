@@ -5,6 +5,7 @@
 #include "Path.hpp"
 #include <stdio.h>
 
+// TODO: add a cost to the grid, and find a way to render the cost
 namespace Grid
 {
     struct CursorLocation
@@ -53,15 +54,10 @@ namespace Grid
         const std::vector<ActionType>& getActions();
 
         // functions im not confident belong here:
-        bool setStartCell(Point loc);
-
-        bool setGoalCell(Point loc);  
-
-        bool isCellGoal(Point loc);
         
         void handleInput(const SDL_Event& e);
 
-        protected:
+        private:
         
         void setCellType(Point loc, CellType type);
 

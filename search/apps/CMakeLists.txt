@@ -29,12 +29,43 @@ target_link_libraries(
 )
 
 add_executable(
-    Bfs_Dfs_Comparison 
-    Bfs_Dfs_Comparison.cpp
+    Comparison 
+    AlgosComparison.cpp
     )
 
 target_link_libraries(
-    Bfs_Dfs_Comparison
+    Comparison
+    Problem
+    World 
+    Solver
+    Visual
+    sdl::sdl
+)
+
+add_executable(
+    DSE
+    DijkstraSearchExample.cpp
+    )
+
+
+target_link_libraries(
+    DSE
+    Problem
+    World 
+    Solver
+    Visual
+    sdl::sdl
+)
+
+
+add_executable(
+    AST
+    AstarSearchExample.cpp
+    )
+
+
+target_link_libraries(
+    AST
     Problem
     World 
     Solver

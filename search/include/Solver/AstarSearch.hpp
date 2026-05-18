@@ -1,8 +1,8 @@
-// implement dijkstras
+// implement A Star
 
 // need to add cost to go and cost to come for the Solver interface, BFS and DFS can just have zero for both
-#ifndef DIJKSTRAS_SEARCH_HPP
-#define DIJKSTRAS_SEARCH_HPP
+#ifndef ASTAR_SEARCH_HPP
+#define ASTAR_SEARCH_HPP
 
 #include "Problem/ProblemGenerator.hpp"
 #include "GridWorld/Path.hpp"
@@ -11,17 +11,18 @@
 
 namespace Grid
 {
-class DijkstrasSearch : public ISolver 
+class AstarSearch : public ISolver 
 {
     struct Point
     {
         Grid::Point wp;
         int c2c; // cost to come
+        int c2g; // cost to go;
     };
     public:
-    DijkstrasSearch();
+    AstarSearch();
 
-    ~DijkstrasSearch();
+    ~AstarSearch();
 
     void setProblem(Problem* problem) override;
 

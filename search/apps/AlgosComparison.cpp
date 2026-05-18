@@ -1,13 +1,15 @@
 #include "Visual/SdlEngine.hpp"
 #include "Solver/BreadthFirstSearch.hpp"
 #include "Solver/DepthFirstSearch.hpp"
+#include "Solver/DijkstrasSearch.hpp"
+#include "Solver/AstarSearch.hpp"
 #include "Solver/PathFinder.hpp"
 #include "Problem/ProblemGenerator.hpp"
 #include "Visual/PathRenderer.hpp"
 #include "GridWorld/PathRenderStrategy.hpp"
 
 const size_t SCREEN_SIZE = 600;
-const int GRID_SIZE = 20;
+const int GRID_SIZE = 30;
 
 int main(int argc, char* argv[])
 {
@@ -25,6 +27,8 @@ int main(int argc, char* argv[])
 
     Grid::BreadthFirstSearch BFS;
     Grid::DepthFirstSearch DFS;
+    Grid::DijkstrasSearch DES;
+    Grid::AstarSearch AST;
 
     planner.setSolver(&BFS);
     planner.solve();
@@ -34,9 +38,19 @@ int main(int argc, char* argv[])
     planner.solve();
     Grid::Path DFS_soln = planner.getSolution();
 
+    planner.setSolver(&DES);
+    planner.solve();
+    Grid::Path DES_soln = planner.getSolution();
+
+    planner.setSolver(&AST);
+    planner.solve();
+    Grid::Path AST_soln = planner.getSolution();
+
     // A legend would be nice to add
     Grid::DrawPath BFS_strat(Grid::PathColor::GREEN);
     Grid::DrawPath DFS_strat(Grid::PathColor::BLUE);
+    Grid::DrawPath DES_strat(Grid::PathColor::PURPLE);
+    Grid::DrawPath AST_strat(Grid::PathColor::RED);
 
     PathRenderer BFS_rend;
     BFS_rend.setPath(&BFS_soln);
@@ -44,12 +58,20 @@ int main(int argc, char* argv[])
     PathRenderer DFS_rend;
     DFS_rend.setPath(&DFS_soln);
     DFS_rend.setStrategy(&DFS_strat);
+    PathRenderer DES_rend;
+    DES_rend.setPath(&DES_soln);
+    DES_rend.setStrategy(&DES_strat);
+    PathRenderer AST_rend;
+    AST_rend.setPath(&AST_soln);
+    AST_rend.setStrategy(&AST_strat);
 
-    SdlEngine display("Comparison Of DFS and BFS", SCREEN_SIZE, SCREEN_SIZE);
+    SdlEngine display("Comparison of Search Algorithms", SCREEN_SIZE, SCREEN_SIZE);
     display.addRenderable(problem->getWorld());
     display.addRenderable(problem.get());
     display.addRenderable(&BFS_rend);
     display.addRenderable(&DFS_rend);
+    display.addRenderable(&DES_rend);
+    display.addRenderable(&AST_rend);
 
 
     display.run();
