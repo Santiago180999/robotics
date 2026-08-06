@@ -6,6 +6,7 @@ add_library(
     PathFinder.cpp
     DijkstrasSearch.cpp
     AstarSearch.cpp
+    BestFirstSearch.cpp
 )
 
 target_include_directories(

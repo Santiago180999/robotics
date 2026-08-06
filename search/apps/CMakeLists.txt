@@ -72,3 +72,18 @@ target_link_libraries(
     Visual
     sdl::sdl
 )
+
+add_executable(
+    BEST
+    BestFs.cpp
+    )
+
+
+target_link_libraries(
+    BEST
+    Problem
+    World 
+    Solver
+    Visual
+    sdl::sdl
+)
